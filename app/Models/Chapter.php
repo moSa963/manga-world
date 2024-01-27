@@ -19,4 +19,7 @@ class Chapter extends Model
         return $this->belongsTo(Series::class);
     }
 
+    public function pages() {
+        return $this->hasMany(Page::class);
+    }
 }
