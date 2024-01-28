@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId("series_id")->constrained()->cascadeOnDelete();
             $table->string("title", 300)->unique();
             $table->boolean("published", 300)->default(false);
+            $table->date("publish_date");
             $table->timestamps();
         });
     }
