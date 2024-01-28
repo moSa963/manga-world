@@ -16,13 +16,13 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->string("title", 300)->unique();
             $table->text("description")->default("");
-            $table->string("painter")->default("");
-            $table->string("author")->default("");
+            $table->string("painter")->default("unknown");
+            $table->string("author")->default("unknown");
             $table->string("other_names", 500)->default("");
-            $table->text("genres");
+            $table->text("genres")->default("");
             $table->string("type");
             $table->string("status");
-            $table->smallInteger("release_year")->default(0);
+            $table->date("publish_date");
             $table->timestamps();
         });
     }
