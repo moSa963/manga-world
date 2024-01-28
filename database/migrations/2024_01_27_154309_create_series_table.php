@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("painter")->default("");
             $table->string("author")->default("");
             $table->string("other_names", 500)->default("");
+            $table->text("genres");
             $table->string("type");
             $table->string("status");
             $table->smallInteger("release_year")->default(0);
