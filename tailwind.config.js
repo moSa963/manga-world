@@ -49,6 +49,8 @@ export default {
                 'surface-800': 'rgb(var(--surface-800))',
                 'surface-900': 'rgb(var(--surface-900))',
                 'surface-950': 'rgb(var(--surface-950))',
+
+                'divider': 'rgb(var(--divider-primary) / var(--tw-bg-opacity))',
             },
         },
     },

@@ -33,6 +33,8 @@
     --text-invert: 255 255 255;
     --border-primary: 60 60 60;
     --border-invert: 190 190 190;
+    --divider-primary: 55 55 55;
+
 }
 
 .dark {
@@ -66,4 +68,5 @@
     --text-invert: 0 0 0;
     --border-primary: 190 190 190;
     --border-invert: 60 60 60;
+    --divider-primary: 200 200 200;
 }
