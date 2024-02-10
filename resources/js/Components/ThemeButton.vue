@@ -18,8 +18,9 @@ const handleClick = () => {
 
 <template>
     <div @click="handleClick"
-        class="rounded-full w-fit p-2 hover:bg-gray-400 hover:bg-opacity-20 cursor-pointer aspect-square">
+        class="h-full aspect-square p-1 sm:p-3 cursor-pointer hover:bg-divider hover:bg-opacity-15 rounded-t-lg">
         <LightbulbOn10 v-if="mode !== 'dark'" size="100%" />
         <MoonWaningCrescent v-else size="100%" />
     </div>
 </template>
+
