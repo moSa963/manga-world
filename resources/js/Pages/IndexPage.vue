@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout/AppLayout.vue';
+import { Head } from '@inertiajs/vue3';
 
 defineProps<{
     canLogin?: boolean;
@@ -7,13 +8,14 @@ defineProps<{
     laravelVersion: string;
     phpVersion: string;
 }>();
+
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <AppLayout>
 
+        <Head title="Welcome" />
+    </AppLayout>
 </template>
 
-<style>
-
-</style>
+<style></style>
