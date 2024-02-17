@@ -15,3 +15,16 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
 };
+
+export interface Series {
+    title: string,
+    description: string,
+    painter: string,
+    author: string,
+    status: string,
+    otherNames: string,
+    type: string,
+    releaseYear: string,
+    chaptersCount: string,
+    image: string,
+}
