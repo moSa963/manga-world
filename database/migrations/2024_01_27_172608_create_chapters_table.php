@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
             $table->foreignId("series_id")->constrained()->cascadeOnDelete();
-            $table->string("title", 300)->unique();
+            $table->string("code");
+            $table->string("title", 300);
             $table->boolean("published", 300)->default(false);
-            $table->date("publish_date");
+            $table->date("release_date");
+            $table->unique(["series_id", "code"]);
             $table->timestamps();
         });
     }

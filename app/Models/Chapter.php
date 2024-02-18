@@ -11,15 +11,19 @@ class Chapter extends Model
 
     protected $fillable = [
         "series_id",
+        "code",
         "title",
         "published",
+        "release_date"
     ];
 
-    public function series() {
+    public function series()
+    {
         return $this->belongsTo(Series::class);
     }
 
-    public function pages() {
+    public function pages()
+    {
         return $this->hasMany(Page::class);
     }
 }

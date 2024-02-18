@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Chapter;
 use App\Models\Series;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,16 +21,18 @@ class ChapterFactory extends Factory
     {
         return [
             "series_id" => null,
+            "code" => $this->faker->unique()->numberBetween(),
             "title" => $this->faker->title(),
             "published" => true,
+            "release_date" => Carbon::now(),
         ];
     }
 
     public function configure()
     {
-        return $this->afterMaking(function(Chapter $chappter) {
-            if ($chappter->series_id == null){
-                $chappter->series_id = Series::factory()->createOne()->id;
+        return $this->afterMaking(function (Chapter $chapter) {
+            if ($chapter->series_id == null) {
+                $chapter->series_id = Series::factory()->createOne()->id;
             }
         });
     }

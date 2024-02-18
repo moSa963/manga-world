@@ -19,6 +19,7 @@ class ChapterResource extends JsonResource
             "title" => $this->title,
             "published" => $this->published,
             "pages" => PageResource::collection($this->pages),
+            "release_year" => $this->release_year,
         ];
     }
 
