@@ -23,7 +23,7 @@ class SeriesFactory extends Factory
     {
         return [
             "user_id" => null,
-            "title" => $this->faker->title(),
+            "title" => $this->faker->unique()->title(),
             "description" => $this->faker->paragraph(),
             "painter" => $this->faker->name(),
             "author" => $this->faker->name(),
