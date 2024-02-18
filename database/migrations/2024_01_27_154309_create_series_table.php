@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text("genres")->default("");
             $table->string("type");
             $table->string("status");
-            $table->date("publish_date");
+            $table->date("release_date");
             $table->timestamps();
         });
     }

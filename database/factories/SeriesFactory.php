@@ -6,6 +6,7 @@ use App\Enums\SeriesStatus;
 use App\Enums\SeriesTypes;
 use App\Models\Series;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -29,13 +30,13 @@ class SeriesFactory extends Factory
             "other_names" => $this->faker->name(),
             "type" => SeriesTypes::MANGA,
             "status" => SeriesStatus::ONGOING,
-            "release_year" => "2018",
+            "release_date" => Carbon::now(),
         ];
     }
 
     public function configure()
     {
-        return $this->afterMaking(function(Series $series) {
+        return $this->afterMaking(function (Series $series) {
             if ($series->user_id == null) {
                 $series->user_id = User::factory()->createOne()->id;
             }

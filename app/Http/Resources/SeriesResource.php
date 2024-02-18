@@ -23,7 +23,7 @@ class SeriesResource extends JsonResource
             "status" => $this->status,
             "other_names" => $this->other_names,
             "type" => $this->type,
-            "release_year" => $this->type,
+            "release_year" => $this->release_year,
             "chapters_count" => $this->whenCounted("chapters"),
         ];
     }

@@ -18,14 +18,16 @@ class Series extends Model
         "other_names",
         "type",
         "status",
-        "release_year",
+        "release_date",
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function chapters() {
+    public function chapters()
+    {
         return $this->hasMany(Chapter::class);
     }
 }
