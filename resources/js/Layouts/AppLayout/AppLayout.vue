@@ -40,7 +40,7 @@ provide("screenInfo", screenInfo);
 <template>
     <div :class="`${theme} min-h-screen relative divide-primary bg-surface-50 text-primary !border-primary`">
         <AppBar :theme-mode="theme" @theme-change="handleThemeModeChange" />
-        <div class="px-7">
+        <div class="px-2 sm:px-7 bg-inherit">
             <slot />
         </div>
     </div>
