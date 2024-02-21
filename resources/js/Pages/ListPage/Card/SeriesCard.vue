@@ -35,7 +35,7 @@ const handleMouseLeave = () => {
         </div>
 
         <div
-            class="absolute inset-1 overflow-hidden rounded-xl border-surface-50 grayscale-0 hover:grayscale-[50%] pointer-events-none">
+            class="absolute inset-0 overflow-hidden rounded-2xl border-surface-50 border-[3px] grayscale-0 hover:grayscale-[50%] pointer-events-none">
 
             <CardImg :src="series.image" :open="hover" />
 
