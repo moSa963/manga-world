@@ -8,6 +8,10 @@ img {
     object-fit: cover;
 }
 
+* {
+    border-color: var(--border-primary);
+}
+
 :root {
     --primary-50: 20 20 50;
     --primary-100: 20 20 70;
