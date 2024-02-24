@@ -16,12 +16,14 @@ const handleChange = (scroscroll: ScrollType) => {
 
 <template>
     <WindowScroll @change="handleChange">
-        <div class="relative w-full bg-inherit flex rounded-2xl overflow-hidden"
-            :style="{ transform: `translateY(${interpolate(p.value, [55, 250], [0, 250 - 55])}px)` }">
+        <div class="relative w-full bg-inherit flex rounded-2xl overflow-hidden" :style="{
+            transform: `translateY(${interpolate(p.value, [55, 200], [0, 200 - 55])}px)`,
+            marginBottom: `${interpolate(p.value, [55, 200], [0, 200 - 55])}px`
+        }">
 
             <div class="h-full aspect-[2/3] overflow-hidden rounded-2xl rounded-e-none border-[1px] border-primary"
-                :style="{ width: `${interpolate(p.value, [55, 100], [288, 144])}px` }">
-                <img src="/one.jpg" class="rounded-2xl rounded-e-none border-[6px] border-surface-50" />
+                :style="{ width: `${interpolate(p.value, [55, 100], [22, 10])}%` }">
+                <img src="/one.jpg" class="rounded-2xl rounded-e-none border-[6px] !border-surface-50" />
             </div>
 
             <div class="relative flex-1 overflow-hidden">
