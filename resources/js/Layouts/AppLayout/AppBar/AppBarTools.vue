@@ -18,7 +18,7 @@ defineProps<{
             </template>
             <p class="text-primary hidden sm:block"> Home</p>
         </AppBarItem>
-        <AppBarItem>
+        <AppBarItem :href="route('series.list')">
             <template #icon>
                 <ViewListIcon #icon />
             </template>
