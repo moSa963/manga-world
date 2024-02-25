@@ -21,10 +21,11 @@ class SeriesResource extends JsonResource
             "painter" => $this->painter,
             "author" => $this->author,
             "status" => $this->status,
-            "other_names" => $this->other_names,
+            "otherNames" => $this->other_names,
             "type" => $this->type,
-            "release_year" => $this->release_year,
-            "chapters_count" => $this->whenCounted("chapters"),
+            "releaseYear" => $this->release_year,
+            "chaptersCount" => $this->whenCounted("chapters"),
+            "latestChapters" => ChapterResource::collection($this->chapters()->limit(2)),
         ];
     }
 }

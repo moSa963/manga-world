@@ -6,8 +6,10 @@ use App\Enums\SeriesStatus;
 use App\Enums\SeriesTypes;
 use App\Models\Series;
 use App\Models\User;
+use App\Services\StoragePathService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Series>
@@ -23,7 +25,7 @@ class SeriesFactory extends Factory
     {
         return [
             "user_id" => null,
-            "title" => $this->faker->unique()->title(),
+            "title" => $this->faker->unique()->name(),
             "description" => $this->faker->paragraph(),
             "painter" => $this->faker->name(),
             "author" => $this->faker->name(),
@@ -40,6 +42,16 @@ class SeriesFactory extends Factory
             if ($series->user_id == null) {
                 $series->user_id = User::factory()->createOne()->id;
             }
-        });
+            if (str_ends_with($series->title, ".")) {
+                $series->title = $series->title . "A";
+            }
+        })
+            ->afterCreating(function (Series $series) {
+                $posters = Storage::allFiles("seeding_resources/posters");
+
+                $poster = $posters[rand(0, count($posters) - 1)];
+
+                Storage::copy($poster, StoragePathService::forPoster($series) . "poster." . pathinfo($poster, PATHINFO_EXTENSION));
+            });
     }
 }
