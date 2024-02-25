@@ -12,9 +12,16 @@ class Page extends Model
     protected $fillable = [
         "chapter_id",
         "name",
+        "number",
     ];
 
-    public function chapter() {
+    public function chapter()
+    {
         return $this->belongsTo(Chapter::class);
+    }
+
+    public function series()
+    {
+        return $this->chapter->series();
     }
 }

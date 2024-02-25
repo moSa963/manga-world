@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("chapter_id")->constrained()->cascadeOnDelete();
             $table->string("name");
+            $table->double("number");
             $table->timestamps();
         });
     }
