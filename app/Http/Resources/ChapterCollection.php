@@ -17,7 +17,9 @@ class ChapterCollection extends ResourceCollection
         return [
             "series" => $this->series->title,
             "title" => $this->title,
+            "number" => $this->number,
             "published" => $this->published,
+            "release_year" => $this->release_year,
         ];
     }
 }

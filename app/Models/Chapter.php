@@ -11,7 +11,7 @@ class Chapter extends Model
 
     protected $fillable = [
         "series_id",
-        "code",
+        "number",
         "title",
         "published",
         "release_date"

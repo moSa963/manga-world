@@ -21,8 +21,8 @@ class ChapterFactory extends Factory
     {
         return [
             "series_id" => null,
-            "code" => $this->faker->unique()->numberBetween(),
-            "title" => $this->faker->title(),
+            "number" => $this->faker->unique()->numberBetween(),
+            "title" => $this->faker->name(),
             "published" => true,
             "release_date" => Carbon::now(),
         ];
