@@ -17,6 +17,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
 };
 
 export interface Series {
+    id: number,
+    user: User,
     title: string,
     description: string,
     painter: string,
@@ -26,5 +28,18 @@ export interface Series {
     type: string,
     releaseYear: string,
     chaptersCount: string,
-    image: string,
+    latestChapters: Array<Chapter>,
+}
+
+export interface Chapter {
+    series: string,
+    title: string,
+    number: number,
+    published: boolean,
+    releaseYear: string,
+    pages: Array<Page>,
+}
+
+export interface Page {
+    number: number,
 }
