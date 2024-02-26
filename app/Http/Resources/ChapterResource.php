@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,12 +21,7 @@ class ChapterResource extends JsonResource
             "number" => $this->number,
             "published" => $this->published,
             "release_year" => $this->release_year,
-            "pages" => PageResource::collection($this->pages),
+            "pages" => $this->when($this->relationLoaded("pages"), PageResource::collection($this->pages)),
         ];
-    }
-
-    public static function collection($resource)
-    {
-        return new ChapterCollection($resource);
     }
 }
