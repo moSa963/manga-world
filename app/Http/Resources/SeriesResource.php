@@ -15,6 +15,7 @@ class SeriesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             "user" => new UserResource($this->user),
             "title" => $this->title,
             "description" => $this->description,
@@ -25,7 +26,7 @@ class SeriesResource extends JsonResource
             "type" => $this->type,
             "releaseYear" => $this->release_year,
             "chaptersCount" => $this->whenCounted("chapters"),
-            "latestChapters" => ChapterResource::collection($this->chapters()->limit(2)),
+            "latestChapters" => ChapterResource::collection($this->chapters()->limit(2)->get()),
         ];
     }
 }
