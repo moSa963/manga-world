@@ -51,7 +51,7 @@ class SeriesFactory extends Factory
 
                 $poster = $posters[rand(0, count($posters) - 1)];
 
-                Storage::copy($poster, StoragePathService::forPoster($series) . "poster." . pathinfo($poster, PATHINFO_EXTENSION));
+                Storage::copy($poster, StoragePathService::forPoster($series));
             });
     }
 }
