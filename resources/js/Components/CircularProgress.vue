@@ -2,10 +2,10 @@
 
 <template>
     <div class="relative flex flex-wrap" style="perspective: 800px;">
-        <div class="root delay1 w-1/2 bg-surface-200 aspect-square rounded-tl-2xl"></div>
-        <div class="root delay2 w-1/2 bg-surface-200 aspect-square"></div>
-        <div class="root delay3 w-1/2 bg-surface-200 aspect-square"></div>
-        <div class="root delay4 w-1/2 bg-surface-200 aspect-square rounded-br-2xl"></div>
+        <div class="root delay1 w-1/2 bg-surface-100 aspect-square rounded-tl-2xl"></div>
+        <div class="root delay2 w-1/2 bg-surface-100 aspect-square"></div>
+        <div class="root delay3 w-1/2 bg-surface-100 aspect-square"></div>
+        <div class="root delay4 w-1/2 bg-surface-100 aspect-square rounded-br-2xl"></div>
     </div>
 </template>
 
