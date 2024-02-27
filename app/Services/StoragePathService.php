@@ -7,14 +7,18 @@ use App\Models\Series;
 
 class StoragePathService
 {
+    static function root(Series $series): string
+    {
+        return "$series->title";
+    }
 
     static function forPoster(Series $series): string
     {
-        return "$series->title/";
+        return StoragePathService::root($series) . "/poster";
     }
 
     static function forPage(Page $page): string
     {
-        return "{$page->series->title}/{$page->chapter->number}/";
+        return StoragePathService::root($page->series) . "/{$page->chapter->number}";
     }
 }

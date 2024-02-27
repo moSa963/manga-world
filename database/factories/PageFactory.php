@@ -43,7 +43,7 @@ class PageFactory extends Factory
 
                 $pr = $pages[rand(0, count($pages) - 1)];
 
-                Storage::copy($pr, StoragePathService::forPage($page) . $page->name);
+                Storage::copy($pr, StoragePathService::forPage($page) . "/$page->name");
             });
     }
 }
