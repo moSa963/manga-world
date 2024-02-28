@@ -33,6 +33,6 @@ class SeriesTest extends TestCase
 
         $response->assertSuccessful();
 
-        $response->assertJsonCount(2, 'data');
+        $response->assertJsonCount(3, 'data');
     }
 }

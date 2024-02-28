@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SeriesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,12 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/series/{series}', function () {
-    return Inertia::render('Series/ShowSeriesPage');
-})->name("series.show");
-
-Route::get('/series', function () {
-    return Inertia::render('ListPage/ListPage');
-})->name("series.list");
+Route::controller(SeriesController::class)
+    ->group(function () {
+        Route::get('/series', "index")->name("series.list");
+        Route::get('/series/{series}', "show")->name("series.show");
+    });
 
 require __DIR__ . '/auth.php';
