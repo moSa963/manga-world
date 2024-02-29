@@ -24,3 +24,8 @@ Route::controller(SeriesController::class)
     ->group(function () {
         Route::get("series", "index")->name("api.series.list");
     });
+
+Route::controller(SeriesImageController::class)
+    ->group(function () {
+        Route::get("series/{series}/poster", "show")->name("api.series.poster");
+    });
