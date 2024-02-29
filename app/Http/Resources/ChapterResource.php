@@ -20,7 +20,7 @@ class ChapterResource extends JsonResource
             "title" => $this->title,
             "number" => $this->number,
             "published" => $this->published,
-            "release_year" => $this->release_year,
+            "releaseDate" => $this->release_date,
             "pages" => $this->when($this->relationLoaded("pages"), PageResource::collection($this->pages)),
         ];
     }

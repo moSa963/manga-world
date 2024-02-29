@@ -36,7 +36,7 @@ export interface Chapter {
     title: string,
     number: number,
     published: boolean,
-    releaseYear: string,
+    releaseDate: string,
     pages: Array<Page>,
 }
 
