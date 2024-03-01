@@ -48,17 +48,17 @@ img {
 }
 
 .dark {
-    --primary-50: 20 20 50;
-    --primary-100: 20 20 70;
-    --primary-200: 20 20 90;
-    --primary-300: 20 20 110;
-    --primary-400: 20 20 130;
+    --primary-950: 20 20 50;
+    --primary-900: 20 20 70;
+    --primary-800: 20 20 90;
+    --primary-700: 20 20 110;
+    --primary-600: 20 20 130;
     --primary-500: 20 20 150;
-    --primary-600: 20 20 170;
-    --primary-700: 20 20 190;
-    --primary-800: 20 20 210;
-    --primary-900: 20 20 230;
-    --primary-950: 20 20 250;
+    --primary-400: 20 20 170;
+    --primary-300: 20 20 190;
+    --primary-200: 20 20 210;
+    --primary-100: 20 20 230;
+    --primary-50: 20 20 250;
 
     --surface-0: 10 10 15;
     --surface-50: 15 15 20;
