@@ -28,6 +28,6 @@ class Series extends Model
 
     public function chapters()
     {
-        return $this->hasMany(Chapter::class)->orderBy("number");
+        return $this->hasMany(Chapter::class);
     }
 }
