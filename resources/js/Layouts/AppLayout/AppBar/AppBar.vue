@@ -60,7 +60,7 @@ const screen = inject<ScreenInfo>("screenInfo");
 
                 <div class="h-[300%] sm:h-[400%] aspect-square"
                     :style="{ transform: `scale(${interpolate(p.value, [0, 150], [1, 0.5])})`, }">
-                    <ApplicationLogo class="w-full h-full text-primary-900 fill-current" />
+                    <ApplicationLogo class="w-full h-full text-primary-500 fill-current" />
                 </div>
 
                 <div class="h-full flex flex-1 justify-end border-inherit">
