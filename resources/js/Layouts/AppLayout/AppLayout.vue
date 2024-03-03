@@ -6,10 +6,11 @@ import { onUnmounted } from 'vue';
 import { provide } from 'vue';
 import { ScreenInfo } from '@/types';
 
-const theme = ref<"light" | "dark">("dark");
+const theme = ref<"light" | "dark">(window.localStorage.getItem("theme") == "light" ? "light" : "dark");
 
 const handleThemeModeChange = (mode: string) => {
     theme.value = mode == "dark" ? "light" : "dark";
+    window.localStorage.setItem("theme", theme.value);
 }
 
 const screenInfo = ref<ScreenInfo>({ size: "sm" });
