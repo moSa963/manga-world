@@ -2,15 +2,17 @@
 import ClickRipple from '../Effects/ClickRipple.vue';
 
 
-const emits = defineEmits<{
+defineEmits<{
     click: [],
 }>();
+
+
 
 </script>
 
 
 <template>
-    <ClickRipple>
+    <ClickRipple @click="$emit('click')">
         <div
             class="relative flex justify-center items-center cursor-pointer p-1 py-2 rounded-lg hover:bg-primary-400/10 transition-colors border-primary-100/75 select-none overflow-hidden ">
 
