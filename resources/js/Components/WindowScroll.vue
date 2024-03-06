@@ -1,4 +1,4 @@
-<script setup lang="ts" >
+<script setup lang="ts">
 import { onUnmounted } from 'vue';
 import { onMounted } from 'vue';
 
@@ -15,7 +15,7 @@ const emits = defineEmits<{
 const onScroll = () => {
     emits("change", {
         value: window.scrollY,
-        innerHeight: document.body.clientHeight,
+        innerHeight: window.innerHeight,
         ratio: window.scrollY / (document.body.clientHeight - window.innerHeight),
     });
 }
