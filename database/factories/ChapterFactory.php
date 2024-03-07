@@ -21,7 +21,7 @@ class ChapterFactory extends Factory
     {
         return [
             "series_id" => null,
-            "number" => $this->faker->unique()->numberBetween(),
+            "number" => null,
             "title" => $this->faker->name(),
             "published" => true,
             "release_date" => Carbon::now(),
@@ -33,6 +33,9 @@ class ChapterFactory extends Factory
         return $this->afterMaking(function (Chapter $chapter) {
             if ($chapter->series_id == null) {
                 $chapter->series_id = Series::factory()->createOne()->id;
+            }
+            if ($chapter->number == null) {
+                $chapter->number = $chapter->series->chapters()->count();
             }
         });
     }
