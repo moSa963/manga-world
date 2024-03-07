@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeriesImageController;
 use Illuminate\Http\Request;
@@ -23,6 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(SeriesController::class)
     ->group(function () {
         Route::get("series", "index")->name("api.series.list");
+    });
+
+Route::controller(ChapterController::class)
+    ->group(function () {
+        Route::get("series/{series}/chapters", "index")->name("api.chapter.list");
     });
 
 Route::controller(SeriesImageController::class)
