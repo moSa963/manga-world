@@ -26,7 +26,7 @@ class SeriesResource extends JsonResource
             "type" => $this->type,
             "releaseYear" => $this->release_year,
             "chaptersCount" => $this->whenCounted("chapters"),
-            "latestChapters" => ChapterResource::collection($this->chapters()->limit(2)->get()),
+            "latestChapters" => ChapterResource::collection($this->chapters()->orderBy("number", "DESC")->limit(2)->get()),
         ];
     }
 }
