@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SeriesController;
+use App\Models\Chapter;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +38,11 @@ Route::controller(SeriesController::class)
     ->group(function () {
         Route::get('/series', "index")->name("series.list");
         Route::get('/series/{series}', "show")->name("series.show");
+    });
+
+Route::controller(ChapterController::class)
+    ->group(function () {
+        Route::get('/series/{series}/chapter/{chapter}', "show")->name("chapter.show");
     });
 
 require __DIR__ . '/auth.php';
