@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 const click = ref<{ active: boolean, x: number, y: number } | null>(null);
 
+const props = defineProps<{
+    disabled?: boolean | null,
+}>();
 
 const emits = defineEmits<{
     click: [],
@@ -21,7 +24,9 @@ const handleUp = () => {
         return;
     }
 
-    emits("click");
+    if (!props.disabled) {
+        emits("click");
+    }
 
     if (!click.value.active) {
         click.value = null;
@@ -44,7 +49,7 @@ const handleLeave = () => {
 
 <template>
     <div @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleLeave" @animationend="handleUp"
-        class="relative overflow-hidden">
+        :class="`relative overflow-hidden ${disabled ? 'opacity-50' : ''}`">
         <div v-if="click" class="absolute bg-primary-400/20 aspect-square root rounded-full object-cover"
             :style="{ top: `${click?.y}px`, left: `${click?.x}px` }">
 
