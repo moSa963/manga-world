@@ -42,7 +42,7 @@ Route::controller(SeriesController::class)
 
 Route::controller(ChapterController::class)
     ->group(function () {
-        Route::get('/series/{series}/chapter/{chapter}', "show")->name("chapter.show");
+        Route::get('/series/{series}/chapter/{chapter:number}', "show")->name("chapter.show");
     });
 
 require __DIR__ . '/auth.php';

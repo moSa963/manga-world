@@ -36,13 +36,11 @@ class ChapterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Series $series, $number)
+    public function show(Series $series, Chapter $chapter)
     {
-        $chapter = Chapter::where("number", $number)->where("series_id", $series->id)->firstOrFail();
-
         return Inertia::render('Chapter/ShowChapterPage', [
             "series" => $series,
-            "chapter" => $chapter,
+            "chapter" => $chapter->load("pages"),
         ]);
     }
 
