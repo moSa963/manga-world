@@ -5,6 +5,11 @@ import { onMounted } from 'vue';
 import { onUnmounted } from 'vue';
 import { provide } from 'vue';
 import { ScreenInfo } from '@/types';
+import { Head } from '@inertiajs/vue3';
+
+defineProps<{
+    title: string,
+}>();
 
 const theme = ref<"light" | "dark">(window.localStorage.getItem("theme") == "light" ? "light" : "dark");
 
@@ -39,6 +44,9 @@ provide("screenInfo", screenInfo);
 </script>
 
 <template>
+
+    <Head :title="title" />
+
     <div :class="`${theme} min-h-screen relative divide-primary bg-surface-50 text-primary`">
         <AppBar :theme-mode="theme" @theme-change="handleThemeModeChange" />
         <div class="px-2 sm:px-7 bg-inherit">
