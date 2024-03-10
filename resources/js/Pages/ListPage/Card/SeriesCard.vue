@@ -3,12 +3,12 @@ import { ref } from 'vue';
 import { Series } from '@/types';
 import CardTitle from './CardTitle.vue';
 import CardImg from './CardImg.vue';
-import Chip from '@/Components/Chip.vue';
 import { Link } from '@inertiajs/vue3';
+import ChapterChip from './ChapterChip.vue';
 
 const hover = ref(false);
 
-defineProps<{
+const p = defineProps<{
     series: Series,
 }>();
 
@@ -27,13 +27,9 @@ const handleMouseLeave = () => {
         class="relative overflow-hidden flex justify-center items-center transition-transform rounded-2xl border-[1px] border-primary p-1 cursor-pointer select-none"
         @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
 
-    <div class="w-full h-[20%] flex gap-2 justify-center items-center bg-surface-50 shadow-inner">
-        <Chip @click="() => console.log('chapter 1107')">
-            <p>1107</p>
-        </Chip>
-        <Chip @click="() => console.log('chapter 1106')">
-            <p>1106</p>
-        </Chip>
+    <div
+        class="w-full h-[20%] flex flex-row-reverse gap-2 justify-center items-center bg-surface-50 shadow-inner overflow-hidden">
+        <ChapterChip v-for="(item, index) in p.series.latestChapters" :key="index" :chapter="item" :series="series" />
     </div>
 
     <div
