@@ -1,18 +1,75 @@
 <script setup lang="ts">
-import ListItem from './ListItem.vue';
+import { Chapter, Response, Series } from '@/types';
+import { onMounted } from 'vue';
+import { ref } from 'vue';
+import fetchList from '@/utils/FetchList';
+import ListDrawer from './ListDrawer.vue';
+import List from './List.vue';
+
+const props = defineProps<{
+    series: Series,
+}>();
+
+const newChapters = ref<Response<Chapter> | null>(null);
+const oldChapters = ref<Response<Chapter> | null>(null);
+const progress = ref<boolean>(false);
+
+onMounted(async () => {
+    await fetchList(newChapters, newChapters.value ? newChapters.value.links.next : route("api.chapter.list", {
+        series: props.series,
+        order: "new",
+    }), progress);
+
+    await fetchList(oldChapters, oldChapters.value ? oldChapters.value.links.next : route("api.chapter.list", {
+        series: props.series,
+        order: "old",
+    }), progress);
+
+    checkIntersection();
+});
+
+const loadNew = async () => {
+    await fetchList(newChapters, newChapters.value?.links.next || null, progress);
+    checkIntersection();
+}
+
+const loadOld = async () => {
+    await fetchList(oldChapters, oldChapters.value?.links.next || null, progress);
+    checkIntersection();
+}
+
+const checkIntersection = () => {
+    const newData = newChapters.value?.data;
+    const oldData = oldChapters.value?.data;
+
+    if (!newData || !oldData || newData.length == 0 || oldData.length == 0) {
+        return;
+    }
+
+    const newItem = newData[newData.length - 1];
+    const oldItem = oldData[oldData.length - 1];
+
+    if (newItem.number > oldItem.number) {
+        return;
+    }
+
+    do {
+        oldData.pop();
+    } while (oldData.length > 0 && oldData[oldData.length - 1].number >= newItem.number);
+
+    newChapters.value!.links.next = null;
+    oldChapters.value!.links.next = null;
+}
 
 </script>
 
 <template>
-    <div class="w-full border-[1px]">
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <div class="">
+    <div class="root w-full border-[1px]">
+        <List :chapters="newChapters?.data" :series="series" />
 
-        </div>
-        <ListItem />
-        <ListItem />
-        <ListItem />
+        <ListDrawer :progress="progress" @load-new="loadNew" @load-old="loadOld"
+            :old-disabled="!Boolean(oldChapters?.links.next)" :new-disabled="!Boolean(newChapters?.links.next)" />
+
+        <List :chapters="oldChapters?.data" :series="series" revers />
     </div>
 </template>
