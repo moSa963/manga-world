@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '../../Layouts/AppLayout/AppLayout.vue';
 import ChaptersList from './ChaptersList/ChaptersList.vue';
-import SeriesBanner from './SeriesBanner.vue';
+import SeriesBanner from './SeriesBanner/SeriesBanner.vue';
 import { Series } from '@/types';
 
 defineProps<{
