@@ -26,7 +26,7 @@ export interface Series {
     status: string,
     otherNames: string,
     type: string,
-    releaseYear: string,
+    release_date: string,
     chaptersCount: string,
     latestChapters: Array<Chapter>,
 }
