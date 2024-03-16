@@ -19,7 +19,7 @@ class ChapterController extends Controller
 
         $data = $series->chapters()
             ->orderBy("number", $request->query("order", 'new') == "new" ? 'desc' : 'asc')
-            ->simplePaginate(3)
+            ->simplePaginate(5)
             ->withQueryString();
 
         return ChapterResource::collection($data);
