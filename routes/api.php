@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ChapterController;
+use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeriesImageController;
 use Illuminate\Http\Request;
@@ -34,4 +35,9 @@ Route::controller(ChapterController::class)
 Route::controller(SeriesImageController::class)
     ->group(function () {
         Route::get("series/{series}/poster", "show")->name("api.series.poster");
+    });
+
+Route::controller(PageController::class)
+    ->group(function () {
+        Route::get('/series/{series}/chapter/{chapter:number}/page/{page:number}', "show")->name("page.show");
     });
