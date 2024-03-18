@@ -23,7 +23,9 @@ defineProps<{
             <div class="bg-surface-200 flex-1 overflow-hidden p-2 md:p-5"
                 :style="{ opacity: `${interpolate(scroll?.value, [100, 200], [1, 0])}`, }">
                 <div class="w-full flex justify-between mb-3">
-                    <p class="p-1 bg-primary-500/25 font-extrabold">{{ series.status }}</p>
+                    <p
+                        :class="`p-1 rounded-md ${series.status !== 'stopped' ? 'bg-red-500/25' : 'bg-primary-500/25'} font-extrabold`">
+                        {{ series.status }}</p>
                     <p class="text-primary-100 font-extrabold">{{ new
                     Date(series.release_date).getFullYear()
                         }}</p>
