@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create(["username" => "admin"]);
 
-        $series = Series::factory(10)->create();
+        $series = Series::factory(30)->create();
 
         foreach ($series as $s) {
-            for ($i = 0; $i < 5; ++$i) {
+            for ($i = 0; $i < 50; ++$i) {
                 $chapter = Chapter::factory()->createOne(["series_id" => $s->id]);
-                for ($i = 0; $i < 5; ++$i) {
+                for ($j = 0; $j < 5; ++$j) {
                     Page::factory()->createOne(["chapter_id" => $chapter->id]);
                 }
             }
