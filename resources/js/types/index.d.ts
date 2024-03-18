@@ -23,7 +23,7 @@ export interface Series {
     description: string,
     painter: string,
     author: string,
-    status: string,
+    status: 'ongoing' | 'stopped' | 'finished',
     otherNames: string,
     type: string,
     release_date: string,
