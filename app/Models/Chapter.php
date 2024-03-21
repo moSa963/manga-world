@@ -26,4 +26,14 @@ class Chapter extends Model
     {
         return $this->hasMany(Page::class);
     }
+
+    public function next(): Chapter | null
+    {
+        return Chapter::where("series_id", $this->series_id)->where("number", ">", $this->number)->first();
+    }
+
+    public function prev(): Chapter | null
+    {
+        return Chapter::where("series_id", $this->series_id)->where("number", "<", $this->number)->orderBy("number", "desc")->first();
+    }
 }
