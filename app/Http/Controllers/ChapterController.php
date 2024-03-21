@@ -41,6 +41,8 @@ class ChapterController extends Controller
         return Inertia::render('Chapter/ShowChapterPage', [
             "series" => $series,
             "chapter" => $chapter->load("pages"),
+            "next" => $chapter->next()?->number,
+            "prev" => $chapter->prev()?->number,
         ]);
     }
 
