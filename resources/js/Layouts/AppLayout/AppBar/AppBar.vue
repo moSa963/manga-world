@@ -20,7 +20,8 @@ const p = ref<ScrollType>({
 const searchOpen = ref(false);
 
 const props = defineProps<{
-    "themeMode": "dark" | "light",
+    themeMode: "dark" | "light",
+    hidden?: boolean,
 }>();
 
 const emits = defineEmits<{
@@ -47,8 +48,9 @@ const screen = inject<ScreenInfo>("screenInfo");
 
 <template>
     <WindowScroll @change="handleChange">
-        <div class="sticky top-0 flex w-full h-24 sm:h-32 z-50">
-            <div :class="`w-full h-10 sm:h-14 flex justify-center items-center border-primary border-b-[1px] ${p.value > 150 ? 'shadow-sm' : ''}`"
+        <div class="sticky top-0 flex w-full h-24 sm:h-32 z-50 pointer-events-none transition-transform"
+            :style="{ transform: `translateY(${hidden ? -100 : 0}%)`, }">
+            <div :class="`w-full h-10 sm:h-14 flex justify-center items-center border-primary border-b-[1px] pointer-events-auto ${p.value > 150 ? '' : ''}`"
                 :style="{
         margin: `${interpolate(p.value, [0, 150], [screen?.size == 'sm' ? 15 : 30, 0])}px`,
         borderColor: `rgb(var(--border-primary) / ${interpolate(p.value, [0, 150], [1, 0])}`,
