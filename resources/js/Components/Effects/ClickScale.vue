@@ -7,6 +7,15 @@ const emits = defineEmits<{
     click: []
 }>();
 
+withDefaults(
+    defineProps<{
+        scale?: number
+    }>(),
+    {
+        scale: 0.95
+    },
+);
+
 const handleDown = () => {
     click.value = true;
 }
@@ -21,8 +30,8 @@ const handleClick = () => {
 </script>
 
 <template>
-    <div @click="handleClick" @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleUp"
-        :style="{ transform: `scale(${click ? 0.99 : 1})` }">
+    <div @click="handleClick" @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleUp" class="cursor-pointer"
+        :style="{ transform: `scale(${click ? 100 * scale : 100}%)`, opacity: click ? 0.9 : 1 }">
         <slot />
     </div>
 </template>
