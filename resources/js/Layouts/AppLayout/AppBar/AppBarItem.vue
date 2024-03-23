@@ -4,10 +4,10 @@ import { Link } from '@inertiajs/vue3';
 
 withDefaults(
     defineProps<{
-        first: boolean,
-        last: boolean,
-        href: string | undefined,
-        simple: boolean,
+        first?: boolean,
+        last?: boolean,
+        href?: string | undefined,
+        simple?: boolean,
     }>(),
     {
         first: false,
