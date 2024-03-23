@@ -9,6 +9,7 @@ import { Head } from '@inertiajs/vue3';
 
 defineProps<{
     title: string,
+    hideAppBar?: boolean
 }>();
 
 const theme = ref<"light" | "dark">(window.localStorage.getItem("theme") == "light" ? "light" : "dark");
@@ -47,9 +48,9 @@ provide("screenInfo", screenInfo);
 
     <Head :title="title" />
 
-    <div :class="`${theme} min-h-screen relative divide-primary bg-surface-50 text-primary`">
-        <AppBar :theme-mode="theme" @theme-change="handleThemeModeChange" />
-        <div class="px-2 sm:px-7 bg-inherit">
+    <div :class="`${theme} min-h-screen relative divide-primary bg-surface-0 text-primary`">
+        <AppBar :theme-mode="theme" @theme-change="handleThemeModeChange" :hidden="Boolean(hideAppBar)" />
+        <div class="px-2 sm:px-7 bg-inherit flex flex-col items-center">
             <slot />
         </div>
     </div>
