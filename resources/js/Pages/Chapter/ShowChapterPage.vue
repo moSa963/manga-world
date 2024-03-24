@@ -3,13 +3,20 @@ import CircularProgress from '@/Components/CircularProgress.vue';
 import AppLayout from '@/Layouts/AppLayout/AppLayout.vue';
 import { Chapter, Series } from '@/types';
 import { onMounted, ref } from 'vue';
+import PageToolsBar from './ChapterPageToolsBar.vue';
+import ArrowCollapseUpIcon from 'vue-material-design-icons/ArrowCollapseUp.vue';
+import ArrowCollapseDownIcon from 'vue-material-design-icons/ArrowCollapseDown.vue';
+import IconButton from '@/Components/IconButton.vue';
 
 const props = defineProps<{
     chapter: Chapter,
+    next: number | null,
+    prev: number | null,
     series: Series,
 }>();
 
 const data = ref<Array<string>>([]);
+const hidden = ref<boolean>(false);
 
 
 const loadData = async () => {
@@ -29,10 +36,23 @@ const loadData = async () => {
 }
 
 onMounted(loadData);
+
+const handleVisibilityClick = () => {
+    hidden.value = !hidden.value;
+}
 </script>
 
 <template>
-    <AppLayout :title="chapter.series">
+    <AppLayout :title="chapter.series" :hideAppBar="hidden">
+        <div class="w-full flex sticky top-9 sm:top-14 items-center justify-center mb-5 ">
+            <PageToolsBar class="transition-transform" :style="{ transform: `translateY(${hidden ? -500 : 0}%)`, }"
+                :series="series" :chapter="chapter" :next="next" :prev="prev" />
+            <IconButton @click="handleVisibilityClick" title="hide app bar">
+                <ArrowCollapseDownIcon v-if="hidden" size="20" />
+                <ArrowCollapseUpIcon v-else size="20" />
+            </IconButton>
+        </div>
+
         <div class="w-full flex flex-col items-center">
             <img class="max-w-4xl mb-3" v-for="(item, index) in data" :key="index" :src="item" />
             <CircularProgress class="size-24" v-if="data.length != chapter.pages.length" />
