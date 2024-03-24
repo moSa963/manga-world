@@ -15,7 +15,7 @@ defineProps<{
 <template>
     <AppLayout :title="series.title">
         <SeriesBanner :series="series" />
-        <div class="w-full flex pb-96 pt-11">
+        <div class="w-full flex flex-col sm:flex-row pb-96 pt-11">
 
             <div class="flex-[2] overflow-hidden relative ">
                 <ChaptersList :series="series" />

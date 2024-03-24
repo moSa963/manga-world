@@ -24,7 +24,7 @@ const handleChange = (v: ScrollType) => {
 
 <template>
     <WindowScroll @change="handleChange">
-        <div class="relative w-full bg-inherit flex rounded-2xl overflow-hidden" :style="{
+        <div class="relative w-full bg-inherit flex rounded-xl sm:rounded-2xl overflow-hidden" :style="{
         transform: `translateY(${interpolate(scroll.value, [50, 200], [0, 200 - 50])}px)`,
         marginBottom: `${interpolate(scroll.value, [55, 200], [0, 200 - 55])}px`
     }">
