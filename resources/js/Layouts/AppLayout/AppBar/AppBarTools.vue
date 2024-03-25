@@ -16,21 +16,21 @@ defineProps<{
             <template #icon>
                 <HomeIcon #icon />
             </template>
-            <p class="text-primary hidden sm:block"> Home</p>
+            <p class="text-primary hidden md:block"> Home</p>
         </AppBarItem>
         <AppBarItem :href="route('series.list')">
 
             <template #icon>
                 <ViewListIcon #icon />
             </template>
-            <p class="hidden sm:block">List</p>
+            <p class="hidden md:block">List</p>
         </AppBarItem>
         <AppBarItem last>
 
             <template #icon>
                 <InformationVariant #icon />
             </template>
-            <p class="hidden sm:block">About us</p>
+            <p class="hidden md:block">About us</p>
         </AppBarItem>
     </div>
 </template>
