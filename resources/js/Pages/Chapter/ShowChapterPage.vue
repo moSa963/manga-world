@@ -4,7 +4,6 @@ import AppLayout from '@/Layouts/AppLayout/AppLayout.vue';
 import { Chapter, Series } from '@/types';
 import { onMounted, ref } from 'vue';
 import PageToolsBar from './ChapterPageToolsBar.vue';
-import ArrowCollapseUpIcon from 'vue-material-design-icons/ArrowCollapseUp.vue';
 import ArrowCollapseDownIcon from 'vue-material-design-icons/ArrowCollapseDown.vue';
 import IconButton from '@/Components/IconButton.vue';
 
@@ -47,9 +46,9 @@ const handleVisibilityClick = () => {
         <div class="w-full flex sticky top-9 sm:top-14 items-center justify-center mb-5 ">
             <PageToolsBar class="transition-transform" :style="{ transform: `translateY(${hidden ? -500 : 0}%)`, }"
                 :series="series" :chapter="chapter" :next="next" :prev="prev" />
-            <IconButton @click="handleVisibilityClick" title="hide app bar">
-                <ArrowCollapseDownIcon v-if="hidden" size="20" />
-                <ArrowCollapseUpIcon v-else size="20" />
+            <IconButton @click="handleVisibilityClick" :title="hidden ? 'show' : 'hide'" class="transition-transform"
+                :style="{ transform: `rotate(${hidden ? 0 : 180}deg)` }">
+                <ArrowCollapseDownIcon size="20" />
             </IconButton>
         </div>
 
