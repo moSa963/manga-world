@@ -27,6 +27,8 @@ const loadData = async () => {
             page: page.number,
         }));
 
+        if (!res.ok) return;
+
         const blob = await res.blob();
 
         data.value.push(URL.createObjectURL(blob));
