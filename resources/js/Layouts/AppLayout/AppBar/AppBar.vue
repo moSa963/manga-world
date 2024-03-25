@@ -60,8 +60,7 @@ const screen = inject<ScreenInfo>("screenInfo");
                 <AppBarTools v-if="!searchOpen || (screen?.size !== 'sm')"
                     :ratio="interpolate(p.value, [0, 150], [1, 0])" />
 
-                <div class="h-[300%] sm:h-[400%] aspect-square"
-                    :style="{ transform: `scale(${interpolate(p.value, [0, 150], [1, 0.5])})`, }">
+                <div class="h-32 sm:h-56" :style="{ transform: `scale(${interpolate(p.value, [0, 150], [1, 0.5])})`, }">
                     <ApplicationLogo class="w-full h-full text-primary-500 fill-current" />
                 </div>
 
