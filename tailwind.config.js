@@ -21,8 +21,8 @@ export default {
                 "invert": 'rgb(var(--text-invert))'
             },
             borderColor: {
-                'primary': 'rgb(var(--border-primary) / var(--tw-border-opacity))',
-                'invert': 'rgb(var(--border-invert) / var(--tw-border-opacity))',
+                'primary': 'rgb(var(--border-primary))',
+                'invert': 'rgb(var(--border-invert))',
             },
             colors: {
                 'primary-50': 'rgb(var(--primary-50))',
@@ -50,7 +50,7 @@ export default {
                 'surface-900': 'rgb(var(--surface-900))',
                 'surface-950': 'rgb(var(--surface-950))',
 
-                'divider': 'rgb(var(--divider-primary) / var(--tw-bg-opacity))',
+                'divider': 'rgb(var(--divider-primary))',
             },
         },
     },
