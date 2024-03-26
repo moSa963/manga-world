@@ -22,12 +22,11 @@ const handleClick = () => {
             :class="`w-full flex bg-transparent border-inherit !border-b-0 rounded-t-lg select-none overflow-hidden`">
 
             <div :style="{ width: open ? '100%' : '0px' }" class="flex-1 h-full overflow-hidden">
-                <input type="text" placeholder="Serach..."
+                <input type="text" placeholder="Search..."
                     class="w-full h-full p-2 bg-inherit border-none -outline-offset-2 focus:outline-0 overflow-hidden" />
             </div>
 
-            <div @click="handleClick"
-                class="h-full aspect-square p-1 sm:p-3 cursor-pointer hover:bg-divider hover:bg-opacity-15">
+            <div @click="handleClick" class="h-full aspect-square p-1 sm:p-3 cursor-pointer hover:bg-divider/15">
                 <Magnify v-if="!open" size="100%" />
                 <Close v-else size="100%" />
             </div>
