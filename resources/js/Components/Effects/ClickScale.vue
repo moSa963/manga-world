@@ -30,8 +30,18 @@ const handleClick = () => {
 </script>
 
 <template>
-    <div @click="handleClick" @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleUp" class="cursor-pointer"
+    <div @click="handleClick" @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleUp"
+        class="root relative cursor-pointer hover:after:bg-divider/10"
         :style="{ transform: `scale(${click ? 100 * scale : 100}%)`, opacity: click ? 0.9 : 1 }">
         <slot />
     </div>
 </template>
+
+
+<style scoped>
+.root::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+</style>
