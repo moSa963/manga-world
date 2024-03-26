@@ -43,5 +43,6 @@ const handleClick = () => {
     content: '';
     position: absolute;
     inset: 0;
+    pointer-events: none;
 }
 </style>
