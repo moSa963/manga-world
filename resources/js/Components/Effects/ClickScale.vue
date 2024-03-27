@@ -31,7 +31,7 @@ const handleClick = () => {
 
 <template>
     <div @click="handleClick" @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleUp"
-        class="root relative cursor-pointer hover:after:bg-divider/10"
+        class="root relative cursor-pointer hover:after:bg-divider/10 overflow-hidden"
         :style="{ transform: `scale(${click ? 100 * scale : 100}%)`, opacity: click ? 0.9 : 1 }">
         <slot />
     </div>
