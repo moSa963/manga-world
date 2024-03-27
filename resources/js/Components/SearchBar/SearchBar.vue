@@ -1,18 +1,32 @@
 <script setup lang="ts">
 import Magnify from 'vue-material-design-icons/Magnify.vue';
 import Close from 'vue-material-design-icons/Close.vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps<{
     open: boolean,
 }>();
 
 const emits = defineEmits<{
-    change: [value: boolean],
+    statusChange: [value: boolean],
+    change: [string]
 }>();
 
 const handleClick = () => {
-    emits("change", props.open);
+    emits("statusChange", props.open);
 }
+
+
+const input = ref("");
+var key: number | undefined;
+
+watch(input, (val: string) => {
+    clearInterval(key);
+    key = setTimeout(() => {
+        emits("change", val);
+    }, 500);
+});
+
 </script>
 
 <template>
@@ -22,7 +36,7 @@ const handleClick = () => {
             :class="`w-full flex bg-transparent border-inherit !border-b-0 rounded-t-lg select-none overflow-hidden`">
 
             <div :style="{ width: open ? '100%' : '0px' }" class="flex-1 h-full overflow-hidden">
-                <input type="text" placeholder="Search..."
+                <input type="text" placeholder="Search..." v-model="input"
                     class="w-full h-full p-2 bg-inherit border-none -outline-offset-2 focus:outline-0 overflow-hidden" />
             </div>
 
@@ -30,7 +44,8 @@ const handleClick = () => {
                 <Magnify v-if="!open" size="100%" />
                 <Close v-else size="100%" />
             </div>
-
         </div>
+
+        <slot v-if="open" />
     </div>
 </template>
