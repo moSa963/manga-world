@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeriesImageController;
+use App\Http\Controllers\Api\SeriesSearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,9 @@ Route::controller(SeriesImageController::class)
 Route::controller(PageController::class)
     ->group(function () {
         Route::get('/series/{series}/chapter/{chapter:number}/page/{page:number}', "show")->name("page.show");
+    });
+
+Route::controller(SeriesSearchController::class)
+    ->group(function () {
+        Route::get('/search/series/{key}', "index")->name("search.series");
     });
