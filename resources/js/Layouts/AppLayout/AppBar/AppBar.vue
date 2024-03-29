@@ -6,9 +6,9 @@ import { ref } from 'vue';
 import AppBarTools from './AppBarTools.vue';
 import AppBarAuthItem from './AppBarAuthItem.vue';
 import ThemeButton from '@/Components/ThemeButton.vue';
-import SearchBar from '@/Components/SearchBar.vue';
 import { inject } from 'vue';
 import { ScreenInfo } from '@/types';
+import Search from './Search.vue';
 
 
 const p = ref<ScrollType>({
@@ -36,8 +36,8 @@ const handleThemeChange = () => {
     emits("themeChange", props.themeMode);
 }
 
-const handleSearchChange = () => {
-    searchOpen.value = !searchOpen.value;
+const handleOpenChange = (v: boolean) => {
+    searchOpen.value = v;
 }
 
 const screen = inject<ScreenInfo>("screenInfo");
@@ -65,7 +65,9 @@ const screen = inject<ScreenInfo>("screenInfo");
                 </div>
 
                 <div class="h-full flex flex-1 justify-end border-inherit">
-                    <SearchBar :open="searchOpen" @change="handleSearchChange" />
+
+                    <Search :open="searchOpen" @open-change="handleOpenChange" />
+
                     <ThemeButton v-if="!searchOpen" :mode="themeMode" @change="handleThemeChange" />
                     <AppBarAuthItem v-if="!searchOpen" />
                 </div>
