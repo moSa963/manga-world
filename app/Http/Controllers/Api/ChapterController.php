@@ -7,6 +7,7 @@ use App\Http\Resources\ChapterResource;
 use App\Models\Chapter;
 use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ChapterController extends Controller
 {
@@ -15,7 +16,7 @@ class ChapterController extends Controller
      */
     public function index(Request $request, Series $series)
     {
-        $this->authorize("viewAny", Series::class);
+        Gate::authorize("viewAny", Series::class);
 
         $data = $series->chapters()
             ->orderBy("number", $request->query("order", 'new') == "new" ? 'desc' : 'asc')

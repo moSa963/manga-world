@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\Series;
 use App\Services\StoragePathService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -41,7 +42,7 @@ class PageController extends Controller
      */
     public function show(Series $series, Chapter $chapter, Page $page)
     {
-        $this->authorize("view", $chapter);
+        Gate::authorize("view", $chapter);
         return Storage::response(StoragePathService::root($series) . "/{$chapter->number}/" . $page->name);
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\SeriesResource;
 use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SeriesController extends Controller
 {
@@ -14,7 +15,7 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        $this->authorize("viewAny", Series::class);
+        Gate::authorize("viewAny", Series::class);
 
         $data = Series::simplePaginate();
 
