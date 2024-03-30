@@ -1,33 +1,19 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Models\Chapter;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
-use Tests\TestCase;
 
-class SeriesTest extends TestCase
-{
-    use RefreshDatabase;
+test('series page can be rendered', function () {
+    $chapter =  Chapter::factory()->createOne();
 
-    public function test_series_page_can_be_rendered(): void
-    {
-        $chapter =  Chapter::factory()->createOne();
+    $response = $this->get("/series/{$chapter->series->id}");
 
-        $response = $this->get("/series/{$chapter->series->id}");
+    $chapter->series->delete();
 
-        $chapter->series->delete();
+    $response->assertStatus(200);
+});
 
-        $response->assertStatus(200);
-    }
+test("list page can be rendered", function () {
+    $response = $this->get('/series');
 
-    public function test_list_page_can_be_rendered(): void
-    {
-        $response = $this->get('/series');
-
-        $response->assertStatus(200);
-    }
-}
+    $response->assertStatus(200);
+});
