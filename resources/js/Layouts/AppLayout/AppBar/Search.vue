@@ -41,7 +41,7 @@ const handleClick = (series: Series) => {
 
 <template>
     <SearchBar :open="open" @status-change="handleOpenChange" @change="handleChange">
-        <SearchCard>
+        <SearchCard v-if="Boolean(series?.data)">
             <SearchCardItem v-for="s in series?.data" :key="s.id" :title="s.title" :secondary="s.author"
                 :src="route('api.series.poster', s.id)" @click="() => handleClick(s)" />
         </SearchCard>
