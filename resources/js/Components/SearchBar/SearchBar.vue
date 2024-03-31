@@ -3,6 +3,9 @@ import Magnify from 'vue-material-design-icons/Magnify.vue';
 import Close from 'vue-material-design-icons/Close.vue';
 import { ref, watch } from 'vue';
 
+const input = ref("");
+var key: number | undefined;
+
 const props = defineProps<{
     open: boolean,
 }>();
@@ -13,12 +16,10 @@ const emits = defineEmits<{
 }>();
 
 const handleClick = () => {
+    input.value = "";
     emits("statusChange", props.open);
 }
 
-
-const input = ref("");
-var key: number | undefined;
 
 watch(input, (val: string) => {
     clearInterval(key);
