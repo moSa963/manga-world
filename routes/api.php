@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthUserController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\SeriesController;
@@ -19,13 +20,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::controller(AuthUserController::class)
+    ->group(function () {
+        Route::get("user", "index")->middleware('auth:sanctum')->name("api.series.list");
+        Route::post("login", "login")->name("api.auth.login");
+        Route::post("register", "register")->name("api.auth.register");
+    });
 
 Route::controller(SeriesController::class)
     ->group(function () {
         Route::get("series", "index")->name("api.series.list");
+        Route::post("series", "store")->middleware('auth:sanctum')->name("api.series.store");
     });
 
 Route::controller(ChapterController::class)
