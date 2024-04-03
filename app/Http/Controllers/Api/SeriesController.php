@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSeriesRequest;
 use App\Http\Resources\SeriesResource;
 use App\Models\Series;
 use Illuminate\Http\Request;
@@ -25,9 +26,13 @@ class SeriesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSeriesRequest $request)
     {
-        //
+        Gate::authorize("create", Series::class);
+
+        $series = $request->store();
+
+        return new SeriesResource($series);
     }
 
     /**
