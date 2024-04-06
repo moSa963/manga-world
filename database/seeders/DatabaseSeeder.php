@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create(["username" => "admin"]);
+        User::factory()->create(["username" => "admin", "admin" => true]);
 
         $series = Series::factory(30)->create();
 
