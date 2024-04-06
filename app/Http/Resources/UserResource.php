@@ -17,6 +17,7 @@ class UserResource extends JsonResource
         return [
             "username" => $this->username,
             "name" => $this->name,
+            "permissions" => $this->when($this->relationLoaded("permissions"), PermissionResource::collection($this->permissions)),
         ];
     }
 }
