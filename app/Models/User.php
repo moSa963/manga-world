@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserPermission as EnumUserPermission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,5 +53,15 @@ class User extends Authenticatable
     public function series()
     {
         return $this->hasMany(Series::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, UserPermission::class);
+    }
+
+    public function hasPermission(EnumUserPermission $permission): bool
+    {
+        return $this->permissions()->where("name", $permission)->exits();
     }
 }
