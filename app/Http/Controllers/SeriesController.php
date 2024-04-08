@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class SeriesController extends Controller
@@ -37,6 +38,8 @@ class SeriesController extends Controller
      */
     public function show(Series $series)
     {
+        Gate::authorize("view", $series);
+
         return Inertia::render('Series/ShowSeriesPage', [
             "series" => $series,
         ]);
