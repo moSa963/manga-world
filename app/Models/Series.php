@@ -19,6 +19,7 @@ class Series extends Model
         "type",
         "status",
         "release_date",
+        "published",
     ];
 
     public function user()

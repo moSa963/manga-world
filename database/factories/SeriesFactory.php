@@ -33,6 +33,7 @@ class SeriesFactory extends Factory
             "type" => SeriesTypes::MANGA,
             "status" => SeriesStatus::ONGOING,
             "release_date" => Carbon::now(),
+            "published" => true,
         ];
     }
 

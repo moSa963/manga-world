@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("type");
             $table->string("status");
             $table->date("release_date");
+            $table->boolean("published")->default(false);
             $table->timestamps();
         });
     }
