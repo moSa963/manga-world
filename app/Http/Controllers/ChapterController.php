@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Chapter;
 use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class ChapterController extends Controller
@@ -38,6 +39,8 @@ class ChapterController extends Controller
      */
     public function show(Series $series, Chapter $chapter)
     {
+        Gate::authorize("view", $chapter);
+
         return Inertia::render('Chapter/ShowChapterPage', [
             "series" => $series,
             "chapter" => $chapter->load("pages"),
