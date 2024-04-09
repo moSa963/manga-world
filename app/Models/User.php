@@ -90,4 +90,17 @@ class User extends Authenticatable
     {
         return $this->admin;
     }
+
+    public function addPermission(EnumUserPermission $permission)
+    {
+        UserPermission::firstOrCreate([
+            "user_id" => $this->id,
+            "permission_id" => Permission::id($permission),
+        ]);
+    }
+
+    public function deletePermission(EnumUserPermission $permission)
+    {
+        UserPermission::where("user_id", $this->id)->where("permission_id", Permission::id($permission))->delete();
+    }
 }
