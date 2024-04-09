@@ -85,4 +85,9 @@ class User extends Authenticatable
 
         return $q->exists();
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->admin;
+    }
 }
