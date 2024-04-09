@@ -60,8 +60,29 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class, UserPermission::class);
     }
 
-    public function hasPermission(EnumUserPermission $permission): bool
+    public function hasPermissions(EnumUserPermission ...$permissions): bool
     {
-        return $this->permissions()->where("name", $permission)->exits();
+        $q = $this->permissions();
+
+        foreach ($permissions as $p) {
+            $q->where("name", $p);
+        }
+
+        return $q->exists();
+    }
+
+    public function hasAnyPermission(EnumUserPermission ...$permissions): bool
+    {
+        $q = $this->permissions();
+
+        for ($i = 0; $i < count($permissions); ++$i) {
+            if ($i == 0) {
+                $q->where("name", $permissions[$i]);
+            } else {
+                $q->orWhere("name", $permissions[$i]);
+            }
+        }
+
+        return $q->exists();
     }
 }
