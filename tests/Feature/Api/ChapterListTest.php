@@ -11,11 +11,15 @@ test('user can get a list of chapters', function () {
 
     $response = $this->get("api/series/{$series->id}/chapters");
 
-    foreach (Series::all() as $s) {
-        $s->delete();
-    }
-
     $response->assertSuccessful();
 
     $response->assertJsonCount(2, 'data');
+});
+
+afterEach(function () {
+    $series = Series::all();
+
+    foreach ($series as $s) {
+        $s->delete();
+    }
 });

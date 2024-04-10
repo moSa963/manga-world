@@ -16,7 +16,14 @@ test('user can get a list of chapters', function () {
 
     $response = $this->get("api/series/{$series->id}/chapter/{$chapter->number}/page/{$page->number}");
 
-    $series->delete();
-
     $response->assertSuccessful();
+});
+
+
+afterEach(function () {
+    $series = Series::all();
+
+    foreach ($series as $s) {
+        $s->delete();
+    }
 });
