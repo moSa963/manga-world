@@ -12,7 +12,9 @@ class SeriesSearchController extends Controller
     public function index(Request $request, string $key)
     {
 
-        $data = Series::where("title", 'LIKE', "%$key%")
+        //TODO
+        $data = Series::for($request->user())
+            ->where("title", 'LIKE', "%$key%")
             ->orWhere("other_names", 'LIKE', "%$key%")
             ->orWhere('author', 'LIKE', "%$key%")
             ->simplePaginate(5);

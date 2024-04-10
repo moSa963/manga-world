@@ -14,11 +14,11 @@ class SeriesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         Gate::authorize("viewAny", Series::class);
 
-        $data = Series::simplePaginate();
+        $data = Series::for($request->user())->simplePaginate();
 
         return SeriesResource::collection($data);
     }
