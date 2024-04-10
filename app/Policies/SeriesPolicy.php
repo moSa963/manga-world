@@ -2,12 +2,19 @@
 
 namespace App\Policies;
 
+use App\Enums\UserPermission;
 use App\Models\Series;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
 class SeriesPolicy
 {
+
+    public function before(User $user, string $ability): bool|null
+    {
+        return $user->isAdmin() ?: null;
+    }
+
     /**
      * Determine whether the user can view any models.
      */
@@ -19,10 +26,9 @@ class SeriesPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Series $series): bool
+    public function view(?User $user, Series $series): bool
     {
-        //
-        return false;
+        return $series->published || $user?->id == $series->user_id || $user?->hasPermissions(UserPermission::APPROVE);
     }
 
     /**
@@ -30,8 +36,7 @@ class SeriesPolicy
      */
     public function create(User $user): bool
     {
-        //
-        return true;
+        return $user->hasPermissions(UserPermission::CREATE);
     }
 
     /**
@@ -39,8 +44,7 @@ class SeriesPolicy
      */
     public function update(User $user, Series $series): bool
     {
-        //
-        return false;
+        return (!$series->published && $user->id == $series->user_id) || ($series->published && $user->hasPermissions(UserPermission::UPDATE));
     }
 
     /**
@@ -48,8 +52,7 @@ class SeriesPolicy
      */
     public function delete(User $user, Series $series): bool
     {
-        //
-        return false;
+        return !$series->published && $user->id == $series->user_id;
     }
 
     /**
