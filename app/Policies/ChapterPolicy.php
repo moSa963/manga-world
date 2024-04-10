@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
+use App\Enums\UserPermission;
 use App\Models\Chapter;
+use App\Models\Series;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ChapterPolicy
 {
@@ -13,7 +14,7 @@ class ChapterPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,15 +22,15 @@ class ChapterPolicy
      */
     public function view(?User $user, Chapter $chapter): bool
     {
-        return true;
+        return $chapter->published || $user?->isAdmin() || $user->id == $chapter->user_id || $user?->hasPermission(UserPermission::APPROVE);
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, Series $series): bool
     {
-        //
+        return $series->published && ($user->isAdmin() || $user->hasPermission(UserPermission::CREATE));
     }
 
     /**
@@ -37,7 +38,7 @@ class ChapterPolicy
      */
     public function update(User $user, Chapter $chapter): bool
     {
-        //
+        return $user->isAdmin() || (!$chapter->published && $user->id == $chapter->user_id) || ($chapter->published && $user->hasPermission(UserPermission::UPDATE));
     }
 
     /**
@@ -45,7 +46,7 @@ class ChapterPolicy
      */
     public function delete(User $user, Chapter $chapter): bool
     {
-        //
+        return $user->isAdmin() || (!$chapter->published && $user->id == $chapter->user_id);
     }
 
     /**
@@ -54,6 +55,7 @@ class ChapterPolicy
     public function restore(User $user, Chapter $chapter): bool
     {
         //
+        return false;
     }
 
     /**
@@ -62,5 +64,6 @@ class ChapterPolicy
     public function forceDelete(User $user, Chapter $chapter): bool
     {
         //
+        return false;
     }
 }
