@@ -16,7 +16,7 @@ class ChapterController extends Controller
      */
     public function index(Request $request, Series $series)
     {
-        Gate::authorize("viewAny", Series::class);
+        Gate::authorize("view", $series);
 
         $data = $series->chapters()
             ->orderBy("number", $request->query("order", 'new') == "new" ? 'desc' : 'asc')
