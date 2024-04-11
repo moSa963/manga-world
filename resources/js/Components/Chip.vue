@@ -12,7 +12,7 @@ const handleClick = () => {
 
 <template>
     <ClickScale
-        class="px-1 h-fit border-primary border-[1px] rounded-lg cursor-pointer hover:bg-surface-600 text-center"
+        class="relative px-1 h-fit border-primary border-[1px] rounded-lg cursor-pointer hover:bg-surface-600 text-center select-none"
         @click="handleClick">
         <slot />
     </ClickScale>
