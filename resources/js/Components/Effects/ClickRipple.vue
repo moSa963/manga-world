@@ -24,7 +24,7 @@ const handleUp = () => {
         return;
     }
 
-    if (!props.disabled) {
+    if (!props.disabled && !click.value.active) {
         emits("click");
     }
 
