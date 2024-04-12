@@ -4,6 +4,7 @@ use App\Enums\UserPermission as EnumsUserPermission;
 use App\Models\Series;
 use App\Models\User;
 use App\Models\UserPermission;
+use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\Sanctum;
 
 test('user can get a list of series', function () {
@@ -56,10 +57,11 @@ function getSeriesData()
         "description" => "test description",
         "painter" => "test painter",
         "author" => "test author",
-        "other_names" => "name,name2,name3,name4",
+        "other_names" => ["name", "name2", "name3", "name4"],
         "type" => "manga",
         "status" => "ongoing",
         "release_date" => "25-04-2004",
+        "poster" => UploadedFile::fake()->image("testImage.jpg"),
     ];
 }
 

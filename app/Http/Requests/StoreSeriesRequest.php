@@ -6,6 +6,8 @@ use App\Enums\SeriesStatus;
 use App\Enums\SeriesTypes;
 use App\Models\Series;
 use App\Models\User;
+use App\Rules\ImageFileRule;
+use App\Services\StoragePathService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -23,11 +25,16 @@ class StoreSeriesRequest extends FormRequest
 
     public function store(): Series
     {
-        return Series::create([
+        $series = Series::create([
             "user_id" => $this->user()->id,
             ...$this->validated(),
+            "other_names" => implode(',', $this->validated("other_names", [])),
             "release_date" => new Carbon($this->validated("release_date")),
         ]);
+
+        $this->file("poster")->storeAs(StoragePathService::forPoster($series));
+
+        return $series;
     }
 
     /**
@@ -45,10 +52,12 @@ class StoreSeriesRequest extends FormRequest
             "description" => ["required", "string"],
             "painter" => ["string"],
             "author" => ["string"],
-            "other_names" => ["string"],
+            "other_names" => ["array"],
+            "other_names.*" => ["string", "regex:/^[^,]*$/"],
             "type" => ["required", "regex:/{$types}/"],
             "status" => ["required", "regex:/{$status}/"],
             "release_date" => ["required", "date"],
+            "poster" => ["file", "mimetypes:image/*"],
         ];
     }
 }
