@@ -12,12 +12,19 @@ onMounted(() => {
 });
 
 defineExpose({ focus: () => input.value?.focus() });
+
+const emit = defineEmits<{
+    enterPress: [],
+}>();
+
+const handelKey = (e: KeyboardEvent) => {
+    if (e.key !== "Enter") return;
+
+    emit('enterPress');
+}
 </script>
 
 <template>
-    <input
-        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-        v-model="model"
-        ref="input"
-    />
+    <input class="border-divider focus:border-primary-900 focus:ring-primary-900 rounded-md shadow-sm bg-inherit"
+        v-model="model" ref="input" @keypress="handelKey" />
 </template>
