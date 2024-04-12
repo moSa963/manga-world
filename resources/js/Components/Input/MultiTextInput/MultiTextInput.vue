@@ -29,7 +29,7 @@ const handleRemove = (index: number) => {
 
 <template>
     <div class="w-full">
-        <InputLabel :value="label" />
+        <InputLabel v-if="label" :value="label" />
         <div class="flex items-center gap-1">
             <TextInput type="text" class="mt-1 block w-full" v-model="v" placeholder="Name..."
                 @enter-press="handleAdd" />
