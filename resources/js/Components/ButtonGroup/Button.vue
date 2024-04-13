@@ -4,7 +4,8 @@ import ClickRipple from '../Effects/ClickRipple.vue';
 
 defineProps<{
     disabled?: boolean | null,
-    border?: boolean
+    border?: boolean,
+    value?: string
 }>();
 
 defineEmits<{
@@ -18,8 +19,8 @@ defineEmits<{
     <ClickRipple @click="$emit('click')" class="rounded-xl" :disabled="disabled">
         <div
             :class="`relative flex justify-center items-center cursor-pointer p-1 py-2 hover:bg-primary-400/10 transition-colors border-primary-100/75 select-none overflow-hidden ${border ? 'rounded-xl border-[1px]' : ''}`">
-
-            <slot />
+            <p v-if="value" class="font-bold text-xl">{{ value }}</p>
+            <slot v-else />
         </div>
     </ClickRipple>
 </template>
