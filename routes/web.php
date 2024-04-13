@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
 Route::controller(SeriesController::class)
     ->group(function () {
         Route::get('/series', "index")->name("series.list");
+        Route::get('/series/new', "create")->name("series.create");
+        Route::post('/series/new', "store")->name("series.store");
         Route::get('/series/{series}', "show")->name("series.show");
     });
 

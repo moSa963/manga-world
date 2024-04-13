@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SeriesStatus;
+use App\Enums\SeriesTypes;
+use App\Http\Requests\StoreSeriesRequest;
 use App\Models\Series;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -14,7 +18,9 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('ListPage/ListPage');
+        return Inertia::render('ListPage/ListPage', [
+            "canCreateSeries" => Gate::check("create", Series::class),
+        ]);
     }
 
     /**
@@ -22,15 +28,26 @@ class SeriesController extends Controller
      */
     public function create()
     {
-        //
+        Gate::authorize("create", Series::class);
+
+        return Inertia::render('CreateSeries/CreateSeriesPage', [
+            "status" => SeriesStatus::values(),
+            "types" => SeriesTypes::values(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSeriesRequest $request)
     {
-        //
+        Gate::authorize("create", Series::class);
+
+        $series = $request->store();
+
+        return to_route("series.show", [
+            "series" => $series->id,
+        ]);
     }
 
     /**
