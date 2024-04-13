@@ -6,6 +6,10 @@ const url = ref<string | null>(null);
 
 const model = defineModel<string>();
 
+defineProps<{
+    error?: string | null,
+}>();
+
 const handleChange = (file: string, u: string) => {
     url.value = u;
     model.value = file;
@@ -15,10 +19,13 @@ const handleChange = (file: string, u: string) => {
 
 <template>
     <div
-        class="relative aspect-[2/3] overflow-hidden rounded-xl sm:rounded-2xl rounded-e-none sm:rounded-e-none border-[1px] border-primary">
+        class="relative text-center aspect-[2/3] overflow-hidden rounded-xl sm:rounded-2xl rounded-e-none sm:rounded-e-none border-[1px] border-primary">
         <ImgMask :style="{ opacity: url == null ? 1 : 0 }" class="absolute hover:!opacity-100 inset-0"
             @change="handleChange" />
         <img v-if="url" :src="url"
             class="rounded-xl sm:rounded-2xl rounded-e-none sm:rounded-e-none border-[2px] md:border-[6px] !border-surface-50" />
+        <p v-if="error" class="text-xs text-red-500">
+            {{ error }}
+        </p>
     </div>
 </template>
