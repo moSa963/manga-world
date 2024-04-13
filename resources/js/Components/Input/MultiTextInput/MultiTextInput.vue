@@ -10,6 +10,7 @@ const model = defineModel<string[]>({ default: [] });
 
 defineProps<{
     label: string,
+    error?: string | null,
 }>();
 
 const handleAdd = () => {
@@ -39,8 +40,13 @@ const handleRemove = (index: number) => {
             </Button>
         </div>
 
-        <div class="flex gap-1 flex-wrap m-3 p-3 border-[1px] border-t-0 border-divider/25">
+        <div
+            :class="`flex gap-1 flex-wrap m-3 p-3 border-[1px] border-t-0 ${error ? 'border-red-700' : 'border-divider/25'}`">
             <InputChip v-for="(text, i) in modelValue" :key="i" :text="text" @click="() => handleRemove(i)" />
         </div>
+
+        <p v-if="error" class="text-xs text-red-500">
+            {{ error }}
+        </p>
     </div>
 </template>
