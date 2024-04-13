@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import InputLabel from './InputLabel.vue';
 
 const model = defineModel<string>({ required: true });
 
 const input = ref<HTMLInputElement | null>(null);
 
-defineProps<{
+const props = defineProps<{
     label?: string,
     placeholder?: string,
     type?: string,
+    error?: string | null,
 }>();
 
 onMounted(() => {
@@ -29,13 +30,26 @@ const handelKey = (e: KeyboardEvent) => {
 
     emit('enterPress');
 }
+
+const inputClass = computed(() => {
+    var res = "w-full border-divider rounded-md shadow-sm bg-inherit ";
+
+    if (props.error) {
+        return res + "border-red-700 focus:border-red-700 focus:ring-red-700"
+    }
+
+    return res + "focus:border-primary-900 focus:ring-primary-900";
+});
+
 </script>
 
 <template>
     <div class="bg-inherit border-none">
         <InputLabel v-if="label" :value="label" />
-        <input :placeholder="placeholder" :type="type"
-            class="w-full border-divider focus:border-primary-900 focus:ring-primary-900 rounded-md shadow-sm bg-inherit"
-            v-model="model" ref="input" @keypress="handelKey" />
+        <input :placeholder="placeholder" :type="type" :class="inputClass" v-model="model" ref="input"
+            @keypress="handelKey" />
+        <p v-if="error" class="text-xs text-red-500">
+            {{ error }}
+        </p>
     </div>
 </template>
