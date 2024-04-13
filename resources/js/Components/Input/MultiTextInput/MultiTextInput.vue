@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import InputLabel from '@/Components/InputLabel.vue';
 import InputChip from './InputChip.vue';
-import TextInput from '@/Components/TextInput.vue';
+import TextInput from '@/Components/Input/TextInput.vue';
 import { ref } from 'vue';
 import Button from '@/Components/ButtonGroup/Button.vue';
 

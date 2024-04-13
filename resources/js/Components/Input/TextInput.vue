@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import InputLabel from './InputLabel.vue';
+import InputLabel from '../InputLabel.vue';
 
 const model = defineModel<string>({ required: true });
 

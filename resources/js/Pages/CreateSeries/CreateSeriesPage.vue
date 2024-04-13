@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Button from '@/Components/ButtonGroup/Button.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import TextInput from '@/Components/TextInput.vue';
 import AppLayout from '@/Layouts/AppLayout/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 import ImageInput from './ImageInput.vue';
 import MultiTextInput from '@/Components/Input/MultiTextInput/MultiTextInput.vue';
 import Select from '@/Components/Input/Select.vue';
 import Textarea from '@/Components/Input/Textarea.vue';
+import TextInput from '@/Components/Input/TextInput.vue';
 
 const props = defineProps<{
     types: string[],
