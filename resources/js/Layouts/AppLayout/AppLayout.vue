@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import AppBar from './AppBar/AppBar.vue';
-import { onMounted } from 'vue';
-import { onUnmounted } from 'vue';
-import { provide } from 'vue';
-import { ScreenInfo } from '@/types';
 import { Head } from '@inertiajs/vue3';
+import Layout from '../Layout.vue';
 
 defineProps<{
     title: string,
@@ -19,39 +16,18 @@ const handleThemeModeChange = (mode: string) => {
     window.localStorage.setItem("theme", theme.value);
 }
 
-const screenInfo = ref<ScreenInfo>({ size: "sm" });
-const matchMedia = window.matchMedia('(min-width: 640px)');
-
-const onResize = () => {
-    screenInfo.value = {
-        size: matchMedia.matches ? "lg" : "sm",
-    };
-}
-
-onMounted(() => {
-    screenInfo.value = {
-        size: matchMedia.matches ? "lg" : "sm",
-    };
-    matchMedia.addEventListener("change", onResize);
-});
-
-
-onUnmounted(() => {
-    matchMedia.removeEventListener("change", onResize);
-});
-
-provide("screenInfo", screenInfo);
-
 </script>
 
 <template>
+    <Layout>
 
-    <Head :title="title" />
+        <Head :title="title" />
 
-    <div :class="`${theme} min-h-screen relative divide-primary bg-surface-0 text-primary`">
-        <AppBar :theme-mode="theme" @theme-change="handleThemeModeChange" :hidden="Boolean(hideAppBar)" />
-        <div class="px-2 sm:px-7 bg-inherit flex flex-col items-center">
-            <slot />
+        <div :class="`${theme} min-h-screen relative divide-primary bg-surface-0 text-primary`">
+            <AppBar :theme-mode="theme" @theme-change="handleThemeModeChange" :hidden="Boolean(hideAppBar)" />
+            <div class="px-2 sm:px-7 bg-inherit flex flex-col items-center">
+                <slot />
+            </div>
         </div>
-    </div>
+    </Layout>
 </template>
