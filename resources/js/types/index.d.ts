@@ -2,7 +2,8 @@ export interface User {
     id: number;
     name: string;
     username: string;
-    email: string;
+    email: string | undefined;
+    admin: boolean | undefined,
     email_verified_at: string;
 }
 
