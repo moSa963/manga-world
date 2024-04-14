@@ -41,10 +41,12 @@ class Series extends Model
         }
 
         return Series::select("series.*")
-            ->where("series.published", true)
-            ->orWhere("series.user_id", $user->id)
-            ->orWhere("users.admin", true)
-            ->orWhere("permissions.name", UserPermission::APPROVE)
+            ->where(function ($q) use ($user) {
+                $q->where("series.published", true)
+                    ->orWhere("series.user_id", $user->id)
+                    ->orWhere("users.admin", true)
+                    ->orWhere("permissions.name", UserPermission::APPROVE);
+            })
             ->join("users", "users.id", "=", DB::raw($user->id))
             ->leftJoin("user_permission", "user_permission.user_id", "=", "users.id")
             ->leftJoin("permissions", "permissions.id", "=", "user_permission.permission_id");
