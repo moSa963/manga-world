@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ClickScale from '../Effects/ClickScale.vue';
+import ListItem from '../ListItem.vue';
 
 defineProps<{
     src?: string,
@@ -15,15 +16,5 @@ defineEmits<{
 
 
 <template>
-    <ClickScale :scale="0.99" @click="$emit('click')">
-        <div class="w-full flex h-16 gap-2">
-            <div class="h-full aspect-square overflow-hidden">
-                <img :src="src" class="object-cover" />
-            </div>
-            <div class="flex flex-col h-full justify-center">
-                <p>{{ title }}</p>
-                <p class="text-divider text-sm">{{ secondary }}</p>
-            </div>
-        </div>
-    </ClickScale>
+    <ListItem @click="$emit('click')" :scale="0.99" :src="src" :title="title" :secondary="secondary" />
 </template>
