@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import Magnify from 'vue-material-design-icons/Magnify.vue';
 import Close from 'vue-material-design-icons/Close.vue';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
+import SearchField from './SearchField.vue';
 
 const input = ref("");
-var key: number | undefined;
 
 const props = defineProps<{
     open: boolean,
@@ -20,13 +20,9 @@ const handleClick = () => {
     emits("statusChange", props.open);
 }
 
-
-watch(input, (val: string) => {
-    clearInterval(key);
-    key = setTimeout(() => {
-        emits("change", val);
-    }, 500);
-});
+const handelChange = (val: string) => {
+    emits("change", val);
+}
 
 </script>
 
@@ -36,10 +32,7 @@ watch(input, (val: string) => {
         <div :style="{ borderWidth: open ? '1px' : '0px' }"
             :class="`w-full flex bg-transparent border-inherit !border-b-0 rounded-t-lg select-none overflow-hidden`">
 
-            <div :style="{ width: open ? '100%' : '0px' }" class="flex-1 h-full overflow-hidden">
-                <input type="text" placeholder="Search..." v-model="input"
-                    class="w-full h-full p-2 bg-inherit border-none -outline-offset-2 focus:outline-0 overflow-hidden" />
-            </div>
+            <SearchField :style="{ width: open ? '100%' : '0px' }" @change="handelChange" v-model="input" />
 
             <div @click="handleClick" class="h-full aspect-square p-1 sm:p-3 cursor-pointer hover:bg-divider/15">
                 <Magnify v-if="!open" size="100%" />
