@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const click = ref(false);
 
@@ -7,12 +7,14 @@ const emits = defineEmits<{
     click: []
 }>();
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
-        scale?: number
+        scale?: number,
+        disabled?: boolean,
     }>(),
     {
-        scale: 0.95
+        scale: 0.95,
+        disabled: false,
     },
 );
 
@@ -27,12 +29,19 @@ const handleUp = () => {
 const handleClick = () => {
     emits("click");
 }
+
+const itemStyle = computed(() => {
+    if (props.disabled) {
+        return { transform: "scale(1)", opacity: 1 };
+    }
+    return { transform: `scale(${click.value ? 100 * props.scale : 100}%)`, opacity: click.value ? 0.9 : 1 };
+})
 </script>
 
 <template>
     <div @click="handleClick" @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleUp"
-        class="root relative cursor-pointer hover:after:bg-divider/10 overflow-hidden"
-        :style="{ transform: `scale(${click ? 100 * scale : 100}%)`, opacity: click ? 0.9 : 1 }">
+        :class="`root relative cursor-pointer overflow-hidden select-none ${disabled ? '' : 'hover:after:bg-divider/10'}`"
+        :style="itemStyle">
         <slot />
     </div>
 </template>
