@@ -4,12 +4,18 @@ namespace App\Services;
 
 use App\Models\Page;
 use App\Models\Series;
+use App\Models\User;
 
 class StoragePathService
 {
     static function root(Series $series): string
     {
         return "$series->title";
+    }
+
+    static function forUserImage(User $user)
+    {
+        return "users/{$user->username}/image";
     }
 
     static function forPoster(Series $series): string
