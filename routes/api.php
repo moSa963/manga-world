@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeriesImageController;
 use App\Http\Controllers\Api\SeriesSearchController;
+use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,11 @@ Route::controller(AuthUserController::class)
         Route::get("user", "index")->middleware('auth:sanctum')->name("api.series.list");
         Route::post("login", "login")->name("api.auth.login");
         Route::post("register", "register")->name("api.auth.register");
+    });
+
+Route::controller(UsersController::class)
+    ->group(function () {
+        Route::get("users", "index")->middleware('auth:sanctum')->name("api.users.list");
     });
 
 Route::controller(SeriesController::class)
