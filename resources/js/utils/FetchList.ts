@@ -2,7 +2,7 @@ import { Response } from "@/types";
 import { Ref } from "vue";
 
 
-const fetchList = async <T>(obj: Ref<Response<T> | null | undefined>, url: string | null, progress?: Ref<boolean>) => {
+const fetchList = async <T>(obj: Ref<Response<T> | null | undefined>, url: string | null, progress?: Ref<boolean>, reset?: boolean) => {
     if (!url || progress?.value) return;
     progress && (progress.value = true);
 
@@ -14,7 +14,7 @@ const fetchList = async <T>(obj: Ref<Response<T> | null | undefined>, url: strin
 
     progress && (progress.value = false);
 
-    if (obj.value == null) {
+    if (obj.value == null || reset) {
         obj.value = js;
         return;
     }
