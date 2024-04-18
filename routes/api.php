@@ -3,9 +3,11 @@
 use App\Http\Controllers\Api\AuthUserController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeriesImageController;
 use App\Http\Controllers\Api\SeriesSearchController;
+use App\Http\Controllers\Api\UserImageController;
 use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +35,11 @@ Route::controller(UsersController::class)
         Route::get("users", "index")->middleware('auth:sanctum')->name("api.users.list");
     });
 
+Route::controller(UserImageController::class)
+    ->group(function () {
+        Route::get("users/{user:username}/image", "show")->middleware('auth:sanctum')->name("api.users.image.show");
+    });
+
 Route::controller(SeriesController::class)
     ->group(function () {
         Route::get("series", "index")->name("api.series.list");
@@ -57,4 +64,11 @@ Route::controller(PageController::class)
 Route::controller(SeriesSearchController::class)
     ->group(function () {
         Route::get('/search/series/{key}', "index")->name("search.series");
+    });
+
+Route::controller(PermissionController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::post('/users/{user:username}/permissions/{permission}', "store")->name("api.permissions.store");
+        Route::delete('/users/{user:username}/permissions/{permission:name}', "destroy")->name("api.permissions.delete");
     });
