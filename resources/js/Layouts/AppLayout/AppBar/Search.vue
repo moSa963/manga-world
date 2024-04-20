@@ -28,7 +28,7 @@ const handleChange = async (value: string) => {
 }
 
 const loadData = async (key: string) => {
-    await fetchList(series, route("search.series", { key }));
+    await fetchList(series, route("api.series.list", { key, count: 5 }));
 }
 
 const handleClick = (series: Series) => {
