@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSeriesRequest;
 use App\Http\Resources\SeriesResource;
 use App\Models\Series;
+use App\Services\SeriesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -18,7 +19,15 @@ class SeriesController extends Controller
     {
         Gate::authorize("viewAny", Series::class);
 
-        $data = Series::for($request->user())->simplePaginate();
+        $q = Series::for($request->user());
+
+        SeriesService::filterQuery($q, $request->query('key', ''), $request->query('filter', ''));
+
+        $q->orderBy('created_at', "DESC");
+
+        $count = $request->query('count', 15);
+
+        $data = $q->simplePaginate($count <= 15 && $count >= 1 ? $count : 15);
 
         return SeriesResource::collection($data);
     }
