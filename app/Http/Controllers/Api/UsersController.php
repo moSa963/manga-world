@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
@@ -19,7 +20,7 @@ class UsersController extends Controller
 
         $key = $request->query("key");
 
-        $q = User::query();
+        $q = User::query()->withCount("permissions");
 
         if ($key != null) {
             $q->where(function ($q) use ($key) {
@@ -27,6 +28,11 @@ class UsersController extends Controller
                     ->orWhere("username", 'LIKE', "%$key%");
             });
         }
+
+        $q->with("permissions");
+
+        $q->orderBy("admin", "DESC")
+            ->orderBy("permissions_count", "DESC");
 
         return UserResource::collection($q->simplePaginate());
     }
