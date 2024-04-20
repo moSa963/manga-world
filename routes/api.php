@@ -61,11 +61,6 @@ Route::controller(PageController::class)
         Route::get('/series/{series}/chapter/{chapter:number}/page/{page:number}', "show")->name("page.show");
     });
 
-Route::controller(SeriesSearchController::class)
-    ->group(function () {
-        Route::get('/search/series/{key}', "index")->name("search.series");
-    });
-
 Route::controller(PermissionController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
