@@ -27,7 +27,7 @@ class SeriesController extends Controller
 
         $count = $request->query('count', 15);
 
-        $data = $q->simplePaginate($count <= 15 && $count >= 1 ? $count : 15);
+        $data = $q->simplePaginate($count <= 15 && $count >= 1 ? $count : 15)->withQueryString();
 
         return SeriesResource::collection($data);
     }

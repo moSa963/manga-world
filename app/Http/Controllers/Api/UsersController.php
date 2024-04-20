@@ -34,7 +34,9 @@ class UsersController extends Controller
         $q->orderBy("admin", "DESC")
             ->orderBy("permissions_count", "DESC");
 
-        return UserResource::collection($q->simplePaginate());
+        $data = $q->simplePaginate()->withQueryString();
+
+        return UserResource::collection($data);
     }
 
     /**
