@@ -5,6 +5,8 @@ export interface User {
     email: string | undefined;
     admin: boolean | undefined,
     email_verified_at: string;
+    permissions?: Array<string>;
+
 }
 
 export interface ScreenInfo {

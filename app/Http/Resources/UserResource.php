@@ -22,7 +22,7 @@ class UserResource extends JsonResource
                 'admin' => $this->isAdmin(),
             ]),
             "email_verified_at" => $this->email_verified_at,
-            "permissions" => $this->when($this->relationLoaded("permissions"), PermissionResource::collection($this->permissions)),
+            "permissions" => $this->when($this->relationLoaded("permissions"), $this->permissions->pluck("name")->toArray()),
         ];
     }
 }
