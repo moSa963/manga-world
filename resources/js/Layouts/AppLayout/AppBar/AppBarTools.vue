@@ -12,7 +12,7 @@ defineProps<{
 
 <template>
     <div class="h-full flex flex-1 border-inherit">
-        <AppBarItem first :href="route('index')">
+        <AppBarItem :href="route('index')">
             <template #icon>
                 <HomeIcon #icon />
             </template>
@@ -25,7 +25,7 @@ defineProps<{
             </template>
             <p class="hidden md:block">List</p>
         </AppBarItem>
-        <AppBarItem last>
+        <AppBarItem>
 
             <template #icon>
                 <InformationVariant #icon />
