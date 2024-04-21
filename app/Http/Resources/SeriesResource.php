@@ -24,7 +24,7 @@ class SeriesResource extends JsonResource
             "status" => $this->status,
             "otherNames" => $this->other_names,
             "type" => $this->type,
-            "published" => $this->published,
+            "published" => boolval($this->published),
             "releaseDate" => $this->release_date,
             "chaptersCount" => $this->whenCounted("chapters"),
             "latestChapters" => ChapterResource::collection($this->chapters()->orderBy("number", "DESC")->limit(2)->get()),
