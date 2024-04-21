@@ -55,21 +55,8 @@ class SeriesPolicy
         return !$series->published && $user->id == $series->user_id;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Series $series): bool
+    public function publish(User $user)
     {
-        //
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Series $series): bool
-    {
-        //
-        return false;
+        return $user->hasPermissions(UserPermission::APPROVE);
     }
 }
