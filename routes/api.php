@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthUserController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\PublishSeriesController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeriesImageController;
 use App\Http\Controllers\Api\SeriesSearchController;
@@ -44,6 +45,11 @@ Route::controller(SeriesController::class)
     ->group(function () {
         Route::get("series", "index")->name("api.series.list");
         Route::post("series", "store")->middleware('auth:sanctum')->name("api.series.store");
+    });
+
+Route::controller(PublishSeriesController::class)
+    ->group(function () {
+        Route::get("series/{series}/publish", "store")->name("api.series.publish");
     });
 
 Route::controller(ChapterController::class)
