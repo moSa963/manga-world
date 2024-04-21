@@ -29,7 +29,7 @@ export interface Series {
     status: 'ongoing' | 'stopped' | 'finished',
     otherNames: string,
     type: string,
-    release_date: string,
+    releaseDate: string,
     chaptersCount: string,
     latestChapters: Array<Chapter>,
     published: boolean,
