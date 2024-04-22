@@ -49,6 +49,22 @@ class Series extends Model
             })
             ->join("users", "users.id", "=", DB::raw($user->id))
             ->leftJoin("user_permission", "user_permission.user_id", "=", "users.id")
-            ->leftJoin("permissions", "permissions.id", "=", "user_permission.permission_id");
+            ->leftJoin("permissions", "permissions.id", "=", "user_permission.permission_id")
+            ->groupBy(
+                "id",
+                "user_id",
+                "title",
+                "description",
+                "painter",
+                "author",
+                "other_names",
+                "type",
+                "status",
+                "release_date",
+                "published",
+                "genres",
+                "created_at",
+                "updated_at",
+            );
     }
 }
