@@ -60,30 +60,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class, UserPermission::class);
     }
 
-    public function hasPermissions(EnumUserPermission ...$permissions): bool
+    public function hasPermissions(EnumUserPermission | string ...$permissions): bool
     {
-        $q = $this->permissions();
-
         foreach ($permissions as $p) {
-            $q->where("name", $p);
+            if (!$this->permissions()->where("name", $p)->exists()) {
+                return false;
+            }
         }
 
-        return $q->exists();
+        return true;
     }
 
     public function hasAnyPermission(EnumUserPermission ...$permissions): bool
     {
-        $q = $this->permissions();
-
-        for ($i = 0; $i < count($permissions); ++$i) {
-            if ($i == 0) {
-                $q->where("name", $permissions[$i]);
-            } else {
-                $q->orWhere("name", $permissions[$i]);
+        foreach ($permissions as $p) {
+            if ($this->permissions()->where("name", $p)->exists()) {
+                return true;
             }
         }
 
-        return $q->exists();
+        return false;
     }
 
     public function isAdmin(): bool
