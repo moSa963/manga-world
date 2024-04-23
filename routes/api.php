@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthUserController::class)
     ->group(function () {
-        Route::get("user", "index")->middleware('auth:sanctum')->name("api.series.list");
+        Route::get("user", "index")->middleware('auth:sanctum')->name("api.auth.user");
         Route::post("login", "login")->name("api.auth.login");
         Route::post("register", "register")->name("api.auth.register");
     });
