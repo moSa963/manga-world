@@ -51,20 +51,20 @@ class Series extends Model
             ->leftJoin("user_permission", "user_permission.user_id", "=", "users.id")
             ->leftJoin("permissions", "permissions.id", "=", "user_permission.permission_id")
             ->groupBy(
-                "id",
-                "user_id",
-                "title",
-                "description",
-                "painter",
-                "author",
-                "other_names",
-                "type",
-                "status",
-                "release_date",
-                "published",
-                "genres",
-                "created_at",
-                "updated_at",
+                "series.id",
+                "series.user_id",
+                "series.title",
+                "series.description",
+                "series.painter",
+                "series.author",
+                "series.other_names",
+                "series.type",
+                "series.status",
+                "series.release_date",
+                "series.published",
+                "series.genres",
+                "series.created_at",
+                "series.updated_at",
             );
     }
 }
