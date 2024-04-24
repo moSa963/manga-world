@@ -5,10 +5,15 @@ import { interpolate } from '@/utils/Interpolator';
 import { inject, ref } from 'vue';
 import BannerImage from './BannerImage.vue';
 import BannerInfo from './BannerInfo.vue';
+import PublishSeriesButton from '@/Components/Actions/PublishSeriesButton.vue';
 
 
-defineProps<{
+const props = defineProps<{
     series: Series,
+}>();
+
+const emit = defineEmits<{
+    change: [Series],
 }>();
 
 const scroll = ref<ScrollType>({
@@ -34,7 +39,10 @@ const screen = inject<ScreenInfo>("screenInfo");
         }">
             <BannerImage :src="route('api.series.poster', series.id)" :scroll="scroll" />
 
-            <BannerInfo :series="series" :scroll="scroll" />
+            <BannerInfo :series="series" :scroll="scroll">
+                <PublishSeriesButton :series="series" @change="v => $emit('change', v)" />
+            </BannerInfo>
+
         </div>
     </WindowScroll>
 </template>
