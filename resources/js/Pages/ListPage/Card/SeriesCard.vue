@@ -38,7 +38,7 @@ const handleMouseLeave = () => {
         <CardImg :src="route('api.series.poster', series.id)" :open="hover" />
 
         <CardTitle :hover="hover">
-            <p class="font-bold">{{ series.title }}</p>
+            <p :class="`${series.published ? '' : 'text-primary-100'} font-bold`">{{ series.title }}</p>
         </CardTitle>
     </div>
     </Link>
