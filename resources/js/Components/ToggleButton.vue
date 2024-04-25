@@ -62,7 +62,7 @@ const handleClick = (value: string) => {
 
 
 <template>
-    <div class="w-full flex">
+    <div class="flex">
         <ClickScale v-for="value in values" @click="() => handleClick(value)"
             :class="`${selected(value) ? 'bg-primary-300/20' : ''} p-2 border-divider/20 border-[1px] border-l-0 first:rounded-l-md first:border-l-[1px] last:rounded-r-md`">
             <p class="text-lg">{{ value }}</p>
