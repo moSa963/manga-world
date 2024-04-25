@@ -2,10 +2,10 @@
 import { Series } from '@/types';
 import Button from '../ButtonGroup/Button.vue';
 import apiRequest from '@/utils/ApiRequest';
+import { hasPermission } from '@/utils/Permissions';
 
 const props = defineProps<{
     series: Series,
-
 }>();
 
 const emit = defineEmits<{
@@ -28,6 +28,6 @@ const handleClick = async () => {
 
 
 <template>
-    <Button @click="handleClick" :border="true" :value="series.published ? 'published' : 'publish'"
-        :disabled="series.published" />
+    <Button v-if="hasPermission($page.props.auth.user, 'approve')" @click="handleClick" :border="true"
+        :value="series.published ? 'published' : 'publish'" :disabled="series.published" />
 </template>
