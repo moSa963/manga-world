@@ -6,8 +6,8 @@ export interface User {
     admin: boolean | undefined,
     email_verified_at: string;
     permissions?: Array<string>;
-
 }
+export type Permission = 'create' | 'delete' | 'update' | 'approve';
 
 export interface ScreenInfo {
     size: "sm" | "md" | "lg",
