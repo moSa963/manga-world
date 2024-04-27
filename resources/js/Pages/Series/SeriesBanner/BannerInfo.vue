@@ -2,6 +2,7 @@
 import { ScrollType } from '@/Components/WindowScroll.vue';
 import { Series } from '@/types';
 import { interpolate } from '@/utils/Interpolator';
+import { getYear } from '@/utils/DateTime';
 
 defineProps<{
     series: Series,
@@ -9,7 +10,6 @@ defineProps<{
 }>();
 
 </script>
-
 
 
 <template>
@@ -30,9 +30,7 @@ defineProps<{
                 <p v-if="!series.published" :class="`p-1 rounded-md bg-primary-500/25 font-extrabold`">
                     unpublished</p>
                 <div class="flex-grow"></div>
-                <p class="text-primary-100 font-extrabold">{{ new
-                    Date(series.releaseDate).getFullYear()
-                    }}</p>
+                <p class="text-primary-100 font-extrabold">{{ getYear(series.releaseDate) }}</p>
             </div>
             <p class="text-sm sm:text-xl flex-1">{{ series.description }}</p>
             <slot />
