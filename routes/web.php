@@ -47,4 +47,7 @@ Route::controller(ChapterController::class)
         Route::get('/series/{series}/chapter/{chapter:number}', "show")->name("chapter.show");
     });
 
+
+
+require __DIR__ . '/admin.php';
 require __DIR__ . '/auth.php';
