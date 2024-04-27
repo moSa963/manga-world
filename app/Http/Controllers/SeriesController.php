@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\SeriesStatus;
 use App\Enums\SeriesTypes;
 use App\Http\Requests\StoreSeriesRequest;
+use App\Http\Resources\SeriesResource;
 use App\Models\Series;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
@@ -56,6 +57,9 @@ class SeriesController extends Controller
     public function show(Series $series)
     {
         Gate::authorize("view", $series);
+
+        $series = new SeriesResource($series);
+        $series->wrap(null);
 
         return Inertia::render('Series/ShowSeriesPage', [
             "series" => $series,
