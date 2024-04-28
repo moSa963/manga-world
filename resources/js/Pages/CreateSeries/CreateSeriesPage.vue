@@ -7,7 +7,7 @@ import ImageInput from './ImageInput.vue';
 import MultiTextInput from '@/Components/Input/MultiTextInput/MultiTextInput.vue';
 import Select from '@/Components/Input/Select.vue';
 import Textarea from '@/Components/Input/Textarea.vue';
-import TextInput from '@/Components/Input/TextInput.vue';
+import TextInput from '@/Components/Input/TextInput/TextInput.vue';
 
 const props = defineProps<{
     types: string[],
