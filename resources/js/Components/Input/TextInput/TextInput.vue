@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import InputLabel from '../../InputLabel.vue';
+import TextInputHintsCard from './TextInputHintsCard.vue';
 
 const model = defineModel<string>({ required: true });
 
@@ -11,6 +12,7 @@ const props = defineProps<{
     placeholder?: string,
     type?: string,
     error?: string | null,
+    hints?: string[]
 }>();
 
 onMounted(() => {
@@ -25,31 +27,54 @@ const emit = defineEmits<{
     enterPress: [],
 }>();
 
+const hints = computed(() => {
+    const res = props?.hints?.filter(e => e.includes(model.value));
+    const open = res && model.value.length > 0 && res.length > 0;
+
+    return open ? res : null;
+})
+
 const handelKey = (e: KeyboardEvent) => {
     if (e.key !== "Enter") return;
+
+    if (hints.value) {
+        model.value = hints.value[0];
+    }
 
     emit('enterPress');
 }
 
 const inputClass = computed(() => {
-    var res = "w-full border-divider rounded-md shadow-sm bg-inherit ";
+    var res = "w-full border-divider rounded-md shadow-sm bg-inherit focus:ring-[0.2px]";
 
     if (props.error) {
-        return res + "border-red-700 focus:border-red-700 focus:ring-red-700"
+        res = res + " border-red-700 focus:border-red-700 focus:ring-red-700";
+    } else {
+        res = res + " focus:border-primary-900 focus:ring-primary-900";
     }
 
-    return res + "focus:border-primary-900 focus:ring-primary-900";
+    if (hints.value) {
+        res = res + " rounded-b-none border-b-0";
+    }
+
+    return res;
 });
 
+const handleHintClick = (hint: string) => {
+    model.value = hint;
+}
 </script>
 
 <template>
-    <div class="bg-inherit border-none">
+    <div class="relative bg-inherit border-none">
         <InputLabel v-if="label" :value="label" />
         <input :placeholder="placeholder" :type="type" :class="inputClass" v-model="model" ref="input"
             @keypress="handelKey" />
+
         <p v-if="error" class="text-xs text-red-500">
             {{ error }}
         </p>
+
+        <TextInputHintsCard v-if="hints" :hints="hints" @click="handleHintClick" />
     </div>
 </template>
