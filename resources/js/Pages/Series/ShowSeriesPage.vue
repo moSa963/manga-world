@@ -19,15 +19,17 @@ const handleChange = (series: Series) => {
 
 <template>
     <AppLayout :title="seriesRef.title">
-        <SeriesBanner :series="seriesRef" @change="handleChange" />
-        <div class="w-full flex flex-col sm:flex-row pb-96 pt-11">
+        <div class="w-full max-w-7xl">
+            <SeriesBanner :series="seriesRef" @change="handleChange" />
+            <div class="w-full flex flex-col sm:flex-row pb-96 pt-11 ">
 
-            <div class="flex-[2] overflow-hidden relative ">
-                <ChaptersList :series="seriesRef" />
-            </div>
+                <div class="flex-[2] overflow-hidden relative ">
+                    <ChaptersList :series="seriesRef" />
+                </div>
 
-            <div class="flex-1">
+                <div class="flex-1">
 
+                </div>
             </div>
         </div>
     </AppLayout>
