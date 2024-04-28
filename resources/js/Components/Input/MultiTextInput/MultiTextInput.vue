@@ -4,22 +4,33 @@ import InputChip from './InputChip.vue';
 import TextInput from '@/Components/Input/TextInput/TextInput.vue';
 import { onMounted, ref } from 'vue';
 import Button from '@/Components/ButtonGroup/Button.vue';
+import ChipList from './ChipList.vue';
 
 const v = ref("");
 const model = defineModel<string[]>({ default: [] });
 
-defineProps<{
+const props = defineProps<{
     label: string,
     error?: string | null,
+    options?: string[],
+    strict?: boolean,
 }>();
 
+onMounted(() => {
+    if (props.strict && !Boolean(props.options)) {
+        throw Error("Invalid props provided. In strict mode, 'options' is mandatory");
+    }
+});
+
 const handleAdd = () => {
-    if (v.value.trim() == "") {
+    const value = v.value.trim();
+
+    if (value == "" || (props.strict && props.options?.findIndex(v => v == value) == -1)) {
         return;
     }
 
     model.value = [...model.value, v.value];
-    v.value = ""
+    v.value = "";
 }
 
 const handleRemove = (index: number) => {
@@ -32,18 +43,15 @@ const handleRemove = (index: number) => {
     <div class="w-full">
         <InputLabel v-if="label" :value="label" />
         <div class="flex items-center gap-1">
-            <TextInput type="text" class="mt-1 block w-full" v-model="v" placeholder="Name..."
-                @enter-press="handleAdd" />
+            <TextInput type="text" class="mt-1 block w-full" v-model="v" placeholder="Name..." @enter-press="handleAdd"
+                :hints="options" />
 
             <Button class="h-full" border @click="handleAdd">
                 <p class="px-3"> Add</p>
             </Button>
         </div>
 
-        <div
-            :class="`flex gap-1 flex-wrap m-3 p-3 border-[1px] border-t-0 ${error ? 'border-red-700' : 'border-divider/25'}`">
-            <InputChip v-for="(text, i) in modelValue" :key="i" :text="text" @click="() => handleRemove(i)" />
-        </div>
+        <ChipList :error="Boolean(error)" :data="modelValue" @click="handleRemove" />
 
         <p v-if="error" class="text-xs text-red-500">
             {{ error }}
