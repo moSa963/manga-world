@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ClickScale from './Effects/ClickScale.vue';
+import ClickScale from '../Effects/ClickScale.vue';
 
 
 //string for 'single item selection' or array for 'multiple item selection'

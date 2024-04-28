@@ -9,6 +9,7 @@ import fetchList from '@/utils/FetchList';
 import WindowScroll, { ScrollType } from '@/Components/WindowScroll.vue';
 import Button from '@/Components/ButtonGroup/Button.vue';
 import { Link } from '@inertiajs/vue3';
+import ToggleButton from '@/Components/Input/ToggleButton.vue';
 
 const data = ref<Response<Series> | null>(null);
 const progress = ref<boolean>(false);

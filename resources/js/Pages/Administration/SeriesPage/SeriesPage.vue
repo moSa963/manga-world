@@ -7,7 +7,7 @@ import { Response, Series } from '@/types';
 import fetchList from '@/utils/FetchList';
 import { onMounted, ref, watch } from 'vue';
 import SeriesListItem from './SeriesListItem.vue';
-import ToggleButton from '@/Components/ToggleButton.vue';
+import ToggleButton from '@/Components/Input/ToggleButton.vue';
 
 
 const data = ref<Response<Series> | null>(null);
