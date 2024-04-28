@@ -3,6 +3,7 @@ import { ScrollType } from '@/Components/WindowScroll.vue';
 import { Series } from '@/types';
 import { interpolate } from '@/utils/Interpolator';
 import { getYear } from '@/utils/DateTime';
+import Chip from '@/Components/Chip.vue';
 
 defineProps<{
     series: Series,
@@ -22,13 +23,11 @@ defineProps<{
         <div class="bg-surface-200 flex-1 overflow-hidden p-2 md:p-5 flex flex-col"
             :style="{ opacity: `${interpolate(scroll?.value, [100, 200], [1, 0])}`, }">
             <div class="w-full flex mb-3 gap-3">
-                <p
-                    :class="`p-1 rounded-md ${series.status === 'stopped' ? 'bg-red-500/25' : 'bg-primary-500/25'} font-extrabold`">
-                    {{ series.status }}</p>
-                <p :class="`p-1 rounded-md bg-primary-500/25 font-extrabold`">
-                    {{ series.type }}</p>
-                <p v-if="!series.published" :class="`p-1 rounded-md bg-primary-500/25 font-extrabold`">
-                    unpublished</p>
+                <Chip :class="`border-0 ${series.status == 'stopped' ? 'bg-red-700/50' : 'bg-primary-500/25'}`">
+                    {{ series.status }}
+                </Chip>
+                <Chip class="border-0 bg-primary-500/25">{{ series.type }}</Chip>
+                <Chip class="border-0 bg-primary-500/25" v-if="!series.published">unpublished</Chip>
                 <div class="flex-grow"></div>
                 <p class="text-primary-100 font-extrabold">{{ getYear(series.releaseDate) }}</p>
             </div>
