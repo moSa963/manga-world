@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-const click = ref<{ active: boolean, x: number, y: number } | null>(null);
 
 const props = defineProps<{
     disabled?: boolean | null,
@@ -10,70 +9,78 @@ const emits = defineEmits<{
     click: [],
 }>();
 
+const pos = ref<{ x: number, y: number } | null>(null);
+const animEnd = ref<boolean>(false);
 
 const handleDown = (e: MouseEvent) => {
-    click.value = {
-        active: true,
+    animEnd.value = false;
+    pos.value = {
         x: e.offsetX,
         y: e.offsetY,
     }
 }
 
-const handleUp = () => {
-    if (click.value == null) {
-        return;
-    }
-
-    if (!props.disabled && !click.value.active) {
-        emits("click");
-    }
-
-    if (!click.value.active) {
-        click.value = null;
-        return;
-    }
-
-    click.value = {
-        ...click.value,
-        active: false,
-    };
-}
-
 const handleLeave = () => {
-    click.value = null;
+    pos.value = null;
 }
 
+const handleAnimationend = () => {
+    animEnd.value = true;
+}
+
+const handleClick = () => {
+    if (animEnd.value) {
+        return clickAction();
+    }
+
+    setTimeout(() => {
+        clickAction();
+    }, 200);
+}
+
+const clickAction = () => {
+    if (!props.disabled) {
+        emits('click');
+    }
+
+    pos.value = null;
+}
 </script>
 
 
 
 <template>
-    <div @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleLeave" @animationend="handleUp"
+    <div @click="handleClick" @mousedown="handleDown" @animationend="handleAnimationend" @mouseleave="handleLeave"
         :class="`relative overflow-hidden ${disabled ? 'opacity-50' : ''}`">
-        <div v-if="click" class="absolute bg-primary-400/20 aspect-square root rounded-full object-cover"
-            :style="{ top: `${click?.y}px`, left: `${click?.x}px` }">
+
+        <div v-if="pos" :class="`effect ${disabled ? 'bg-divider/20' : 'bg-primary-400/10'}`"
+            :style="{ top: `${pos.y}px`, left: `${pos.x}px` }">
 
         </div>
+
         <slot />
     </div>
 </template>
 
 <style scoped>
-.root {
-    animation: anim 400ms forwards;
+.effect {
+    position: absolute;
+    animation: anim 500ms forwards;
+    width: 1%;
+    height: 1%;
     transform: translate(-50%, -50%);
-    width: 1rem;
-    height: 1rem;
+    border-radius: inherit;
 }
 
 @keyframes anim {
+    0% {
+        width: 1%;
+        height: 1%;
+    }
+
     100% {
-        transform: translate(0%, 0%);
-        width: 100%;
-        height: 100%;
-        top: 0%;
-        left: 0%;
-        border-radius: 0px;
+        width: 200%;
+        height: 200%;
     }
 }
 </style>
