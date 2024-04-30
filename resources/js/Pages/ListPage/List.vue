@@ -15,7 +15,7 @@ defineProps<{
 
 <template>
     <div :class="`relative flex w-full flex-wrap justify-center gap-2 sm:gap-5`">
-        <Card :series="card" :class="`w-full max-w-28 sm:max-w-52 shrink-0 aspect-square`"
+        <Card :series="card" :key="card.id" :class="`w-full max-w-28 sm:max-w-52 shrink-0 aspect-square`"
             v-for="(card, _) in series" />
 
     </div>
