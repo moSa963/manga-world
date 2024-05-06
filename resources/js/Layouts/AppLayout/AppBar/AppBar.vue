@@ -52,15 +52,16 @@ const screen = inject<ScreenInfo>("screenInfo");
             :style="{ transform: `translateY(${hidden ? -100 : 0}%)`, }">
             <div :class="`w-full h-10 sm:h-14 flex justify-center items-center border-primary border-b-[1px] pointer-events-auto ${p.value > 150 ? '' : ''}`"
                 :style="{
-        margin: `${interpolate(p.value, [0, 150], [screen?.size == 'sm' ? 15 : 30, 0])}px`,
-        borderColor: `rgb(var(--border-primary) / ${interpolate(p.value, [0, 150], [1, 0])}`,
-        backgroundColor: `rgb(var(--surface-0) / ${interpolate(p.value, [0, 150], [0, 1])}`
-    }">
+                    margin: `${interpolate(p.value, [0, 150], [screen?.size == 'sm' ? 15 : 30, 0])}px`,
+                    borderColor: `rgb(var(--border-primary) / ${interpolate(p.value, [0, 150], [1, 0])}`,
+                    backgroundColor: `rgb(var(--surface-0) / ${interpolate(p.value, [0, 150], [0, 1])}`
+                }">
 
                 <AppBarTools v-if="!searchOpen || (screen?.size !== 'sm')"
                     :ratio="interpolate(p.value, [0, 150], [1, 0])" />
 
-                <div class="h-32 sm:h-56" :style="{ transform: `scale(${interpolate(p.value, [0, 150], [1, 0.5])})`, }">
+                <div class="h-32 sm:h-56 pointer-events-none"
+                    :style="{ transform: `scale(${interpolate(p.value, [0, 150], [1, 0.5])})`, }">
                     <ApplicationLogo class="w-full h-full text-primary-500 fill-current" />
                 </div>
 
