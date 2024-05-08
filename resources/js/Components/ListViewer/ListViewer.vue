@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { interpolate } from '@/utils/Interpolator';
-import { computed, getCurrentInstance, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 const num = ref(0);
 const hover = ref(false);
-const index = ref(10);
+const index = ref(0);
 var key: number | undefined;
 
 const props = defineProps<{
@@ -80,7 +80,7 @@ const getOpacity = (i: number) => {
 
                 <div v-for="(v, i) in [0, 1, 2, 3, 4, 5, 6]" @mouseenter="() => handleEnter()"
                     @mouseleave="() => handleLeave()" @click="() => handleClick(animData.currentIndex(i))"
-                    class="absolute w-full h-40 border-[1px] border-divider shadow-xl rounded-xl overflow-hidden"
+                    class="absolute w-full h-40 border-[1px] border-divider shadow-xl rounded-xl overflow-hidden hover:after:absolute hover:after:inset-0 hover:after:bg-divider/15 cursor-pointer"
                     :style="{
                         zIndex: Math.abs(((animData.ratio) > 30 ? i - 1 : i) - 3),
                         opacity: getOpacity(i),
