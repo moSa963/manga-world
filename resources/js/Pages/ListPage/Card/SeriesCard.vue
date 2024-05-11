@@ -4,7 +4,7 @@ import { Series } from '@/types';
 import CardTitle from './CardTitle.vue';
 import CardImg from './CardImg.vue';
 import { Link } from '@inertiajs/vue3';
-import ChapterChip from './ChapterChip.vue';
+import ChapterChip from '@/Components/ChapterChip.vue';
 
 const hover = ref(false);
 
