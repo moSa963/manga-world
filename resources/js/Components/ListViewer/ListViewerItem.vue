@@ -77,7 +77,7 @@ const translateZ = () => {
 
 <template>
     <div @mouseenter="() => mouseChange(true)" @mouseleave="() => mouseChange(false)"
-        class="absolute w-full h-40 border-[1px] border-divider shadow-xl rounded-xl overflow-hidden hover:after:absolute hover:after:inset-0 hover:after:bg-divider/15 cursor-pointer"
+        class="absolute w-full h-40 border-[1px] border-divider shadow-xl rounded-xl overflow-hidden hover:after:absolute hover:after:inset-0 hover:after:bg-divider/15 hover:after:pointer-events-none cursor-pointer"
         :style="{
             zIndex: getZIndex(),
             opacity: getOpacity(),
