@@ -10,7 +10,7 @@ class StoragePathService
 {
     static function root(Series $series): string
     {
-        return "$series->title";
+        return "$series->id";
     }
 
     static function forUserImage(User $user)
