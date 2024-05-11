@@ -21,9 +21,12 @@ class SeriesController extends Controller
 
         $q = Series::for($request->user());
 
-        SeriesService::filterQuery($q, $request->query('key', ''), $request->query('filter', ''));
-
-        $q->orderBy('created_at', "DESC");
+        SeriesService::filterQuery(
+            $q,
+            $request->query('key', ''),
+            $request->query('filter', ''),
+            $request->query('sort', 'new')
+        );
 
         $count = $request->query('count', 15);
 
