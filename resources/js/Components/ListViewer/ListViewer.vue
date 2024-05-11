@@ -71,9 +71,9 @@ const handleMouseChange = (v: boolean) => {
     <div class="relative w-full flex flex-col justify-center items-center overflow-hidden">
         <div class="w-full max-w-md aspect-square">
             <div class="relative w-full aspect-square" style="perspective: 800px;">
-
-                <ListViewerItem v-for="i in [0, 1, 2, 3, 4, 5, 6]" @mouse-change="handleMouseChange"
-                    @click="() => handleClick(i)" :index="i" :anime-ratio="animData.ratio">
+                <ListViewerItem v-for="i in [0, 1, 2, 3, 4, 5, 6]" :key="animData.currentIndex(i)"
+                    @mouse-change="handleMouseChange" @click.capture="() => handleClick(i)" :index="i"
+                    :anime-ratio="animData.ratio">
                     <slot v-if="data[animData.currentIndex(i)]" :value="data[animData.currentIndex(i)]" />
                 </ListViewerItem>
             </div>
