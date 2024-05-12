@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import Viewer from '@/Components/ListViewer/ListViewer.vue';
 import AppLayout from '@/Layouts/AppLayout/AppLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import SeriesViewer from './SeriesViewer.vue';
 
 defineProps<{
     canLogin?: boolean;
@@ -12,9 +14,10 @@ defineProps<{
 </script>
 
 <template>
-    <AppLayout>
+    <AppLayout title="Home">
 
-        <Head title="Welcome" />
+        <SeriesViewer />
+
     </AppLayout>
 </template>
 
