@@ -3,7 +3,7 @@ import { interpolate } from '@/utils/Interpolator';
 import { computed, onMounted, ref, watch } from 'vue';
 import ListViewerItem from './ListViewerItem.vue';
 
-const num = ref(0);
+const anime = ref(0);
 const hover = ref(false);
 const index = ref(0);
 var key: number | undefined;
@@ -16,26 +16,6 @@ const emit = defineEmits<{
     click: [item: any]
 }>();
 
-watch(index, () => {
-    index.value %= props.data.length;
-
-    animateTo(num.value, index.value * 100);
-});
-
-const animateTo = (c: number, n: number) => {
-    var counter = 0;
-    clearInterval(key);
-
-    key = setInterval(() => {
-        counter += 1;
-        num.value = interpolate(counter, [0, 100], [c, n]);
-
-        if (counter == 100) {
-            clearInterval(key);
-        }
-    }, 10);
-}
-
 onMounted(() => {
     setInterval(() => {
         if (!hover.value) {
@@ -44,23 +24,65 @@ onMounted(() => {
     }, 8000);
 });
 
-const animData = computed(() => {
-    return {
-        ratio: num.value % 100,
-        currentIndex: (i: number) => (Math.floor(num.value / 100) + i) % props.data.length,
-    };
+watch(index, () => {
+    index.value %= props.data.length;
+    animateTo(anime.value, index.value, props.data.length);
 });
 
+const animateTo = (from: number, to: number, max: number) => {
+
+    const gap = from - to;
+    var steps = Math.abs(gap);
+    const reverse = max - steps;
+
+    if (steps < reverse) {
+        if (gap > 0) {
+            steps *= -1;
+        }
+    } else {
+        steps = reverse;
+        if (gap < 0) {
+            steps *= -1;
+        }
+    }
+
+    var count = 0;
+
+    clearInterval(key);
+
+    key = setInterval(() => {
+        ++count;
+
+        anime.value = mod(from + interpolate(count, [1, 100], [0, steps]), max);
+
+        if (count >= 100) {
+            clearInterval(key);
+        }
+    }, 5);
+}
+
+const currentIndex = (i: number) => {
+    return (Math.floor(anime.value) + i) % props.data.length;
+}
+
 const handleClick = (i: number) => {
-    index.value = animData.value.currentIndex(i);
+    index.value = currentIndex(i);
 
     if (i === 0) {
-        emit('click', props.data[animData.value.currentIndex(i)]);
+        emit('click', props.data[currentIndex(i)]);
     }
 }
 
 const handleMouseChange = (v: boolean) => {
     hover.value = v;
+}
+
+const mod = (x: number, y: number) => {
+    return ((x % y) + y) % y;
+}
+
+const handleWheel = (e: WheelEvent) => {
+    index.value += e.deltaY > 1 ? 1 : -1;
 }
 
 </script>
@@ -70,11 +92,10 @@ const handleMouseChange = (v: boolean) => {
 <template>
     <div class="relative w-full flex flex-col justify-center items-center overflow-hidden">
         <div class="w-full max-w-md aspect-square">
-            <div class="relative w-full aspect-square" style="perspective: 800px;">
-                <ListViewerItem v-for="i in [0, 1, 2, 3, 4, 5, 6]" :key="animData.currentIndex(i)"
-                    @mouse-change="handleMouseChange" @click.capture="() => handleClick(i)" :index="i"
-                    :anime-ratio="animData.ratio">
-                    <slot v-if="data[animData.currentIndex(i)]" :value="data[animData.currentIndex(i)]" />
+            <div class="relative w-full aspect-square" @wheel="handleWheel" style="perspective: 800px;">
+                <ListViewerItem v-for="(_, i) in 7" :key="currentIndex(i)" @mouse-change="handleMouseChange"
+                    @click.capture="() => handleClick(i)" :index="i" :anime-ratio="anime % 1">
+                    <slot v-if="data[currentIndex(i)]" :value="data[currentIndex(i)]" />
                 </ListViewerItem>
             </div>
         </div>

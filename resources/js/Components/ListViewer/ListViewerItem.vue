@@ -8,7 +8,6 @@ const props = defineProps<{
 
 const emits = defineEmits<{
     mouseChange: [hovering: boolean],
-
 }>();
 
 
@@ -17,7 +16,7 @@ const mouseChange = (v: boolean) => {
 }
 
 const getZIndex = () => {
-    return Math.abs((props.animeRatio > 30 ? props.index - 1 : props.index) - 3);
+    return Math.abs((props.animeRatio > 0.3 ? props.index - 1 : props.index) - 3);
 }
 
 const getOpacity = () => {
@@ -27,7 +26,7 @@ const getOpacity = () => {
 
     return interpolate(
         props.animeRatio,
-        [0, 70],
+        [0, 0.7],
         props.index === 0 ? [1, 0] : [0, 1]
     );
 }
@@ -35,7 +34,7 @@ const getOpacity = () => {
 const getBrightness = () => {
 
     return `brightness(${interpolate(
-        Math.abs(props.index - 3) + (((Math.abs(props.index - 4) > Math.abs(props.index - 3)) ? 1 : -1) * (props.animeRatio / 100)),
+        Math.abs(props.index - 3) + (((Math.abs(props.index - 4) > Math.abs(props.index - 3)) ? 1 : -1) * props.animeRatio),
         [0, 1, 2, 3],
         [0.4, 0.6, 0.8, 1]
     )})`;
@@ -43,15 +42,15 @@ const getBrightness = () => {
 
 const getHeight = () => {
     return `${interpolate(
-        props.index > 1 ? 0 : (props.index == 0 ? 100 - props.animeRatio : props.animeRatio),
-        [0, 100], [35, 100]
+        props.index > 1 ? 0 : (props.index == 0 ? 1 - props.animeRatio : props.animeRatio),
+        [0, 1], [35, 100]
     )}%`;
 }
 
 const translateX = () => {
     return `${interpolate(
         props.animeRatio,
-        [0, 100],
+        [0, 1],
         [props.index == 6 ? 300 : props.index * 40, props.index === 0 ? -300 : (props.index - 1) * 40]
     )}%`;
 }
@@ -59,7 +58,7 @@ const translateX = () => {
 const translateY = () => {
     return `${interpolate(
         props.animeRatio,
-        [0, 100],
+        [0, 1],
         [props.index * 50, props.index == 0 ? 30 : (props.index - 1) * 50]
     )}%`
 }
@@ -67,7 +66,7 @@ const translateY = () => {
 const translateZ = () => {
     return `${-Math.abs(interpolate(
         props.animeRatio,
-        [0, 100],
+        [0, 1],
         [props.index * -100, (props.index - 1) * -100]
     ))}px`
 }
