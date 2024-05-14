@@ -92,7 +92,7 @@ const handleWheel = (e: WheelEvent) => {
 <template>
     <div class="relative w-full flex flex-col justify-center items-center overflow-hidden">
         <div class="w-full max-w-md aspect-square">
-            <div class="relative w-full aspect-square" @wheel="handleWheel" style="perspective: 800px;">
+            <div class="relative w-full aspect-square" @wheel.prevent="handleWheel" style="perspective: 800px;">
                 <ListViewerItem v-for="(_, i) in 7" :key="currentIndex(i)" @mouse-change="handleMouseChange"
                     @click.capture="() => handleClick(i)" :index="i" :anime-ratio="anime % 1">
                     <slot v-if="data[currentIndex(i)]" :value="data[currentIndex(i)]" />
