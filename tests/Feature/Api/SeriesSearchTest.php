@@ -30,7 +30,7 @@ test('user can search for series', function () {
         "author" => "onwePiece",
     ]);
 
-    $response = get(route("api.series.list", ["key" => $key]));
+    $response = get(route("api.series.list", ["key" => $key, "sort" => 'old']));
 
     $response->assertStatus(200);
     $response->assertJsonCount(3, "data");
