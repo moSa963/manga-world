@@ -2,6 +2,7 @@
 
 use App\Enums\UserPermission;
 use App\Models\Chapter;
+use App\Models\Series;
 use App\Models\User;
 
 test('series page can be rendered', function () {
@@ -43,4 +44,12 @@ test("list page can be rendered", function () {
     $response = $this->get('/series');
 
     $response->assertStatus(200);
+});
+
+afterEach(function () {
+    $series = Series::all();
+
+    foreach ($series as $s) {
+        $s->delete();
+    }
 });
