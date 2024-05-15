@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Chapter;
 use App\Models\Page;
 use App\Models\Series;
 use App\Models\User;
@@ -23,8 +24,8 @@ class StoragePathService
         return StoragePathService::root($series) . "/poster";
     }
 
-    static function forPage(Page $page): string
+    static function forPage(Chapter $chapter): string
     {
-        return StoragePathService::root($page->series) . "/{$page->chapter->number}";
+        return StoragePathService::root($chapter->series) . "/{$chapter->number}";
     }
 }
