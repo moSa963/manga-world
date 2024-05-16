@@ -44,9 +44,9 @@ Route::controller(SeriesController::class)
 
 Route::controller(ChapterController::class)
     ->group(function () {
+        Route::get('/series/{series}/chapter/new', "create")->name("chapter.create");
         Route::get('/series/{series}/chapter/{chapter:number}', "show")->name("chapter.show");
     });
-
 
 
 require __DIR__ . '/admin.php';

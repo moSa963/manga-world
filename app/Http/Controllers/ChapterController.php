@@ -21,9 +21,13 @@ class ChapterController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Series $series)
     {
-        //
+        Gate::authorize("create", Series::class);
+
+        return Inertia::render('CreateChapter/CreateChapterPage', [
+            "series" => $series->id,
+        ]);
     }
 
     /**
