@@ -16,6 +16,7 @@ class ChapterResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             "series" => $this->series->title,
             "title" => $this->title,
             "number" => $this->number,
