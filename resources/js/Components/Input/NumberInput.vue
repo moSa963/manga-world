@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import PlusIcon from 'vue-material-design-icons/Plus.vue';
 import MinusIcon from 'vue-material-design-icons/Minus.vue';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 
 const model = defineModel<number>({ default: 0 });
+
+const emit = defineEmits<{
+    change: [vOld: number, vNew: number]
+}>();
 
 const props = withDefaults(
     defineProps<{
@@ -18,19 +22,35 @@ const props = withDefaults(
 );
 
 onMounted(() => {
-    if (model.value > props.max || model.value < props.min) {
+    if (model.value >= props.max || model.value < props.min) {
+        model.value = props.min;
+    }
+});
+
+watch([props, model], () => {
+    if (props.max == props.min) {
+        model.value = props.min;
+        return;
+    }
+
+    if (model.value >= props.max) {
+        model.value = props.max - props.step;
+    }
+    if (model.value < props.min) {
         model.value = props.min;
     }
 });
 
 const handlePlus = () => {
-    if (model.value + props.step <= props.max) {
-        model.value += props.step
+    if (model.value + props.step < props.max) {
+        emit('change', model.value, model.value + props.step);
+        model.value += props.step;
     }
 }
 
 const handleMinus = () => {
     if (model.value - props.step >= props.min) {
+        emit('change', model.value, model.value - props.step);
         model.value -= props.step;
     }
 }
