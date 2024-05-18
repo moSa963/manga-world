@@ -22,7 +22,7 @@ class ChapterPolicy
      */
     public function view(?User $user, Chapter $chapter): bool
     {
-        return $chapter->published || $user?->isAdmin() || $user->id == $chapter->user_id || $user?->hasPermission(UserPermission::APPROVE);
+        return $chapter->published || ($user != null && ($user->isAdmin() || $user->id == $chapter->user_id || $user->hasPermissions(UserPermission::APPROVE)));
     }
 
     /**
@@ -30,7 +30,7 @@ class ChapterPolicy
      */
     public function create(User $user, Series $series): bool
     {
-        return $series->published && ($user->isAdmin() || $user->hasPermission(UserPermission::CREATE));
+        return $series->published && ($user->isAdmin() || $user->hasPermissions(UserPermission::CREATE));
     }
 
     /**
@@ -38,7 +38,7 @@ class ChapterPolicy
      */
     public function update(User $user, Chapter $chapter): bool
     {
-        return $user->isAdmin() || (!$chapter->published && $user->id == $chapter->user_id) || ($chapter->published && $user->hasPermission(UserPermission::UPDATE));
+        return $user->isAdmin() || (!$chapter->published && $user->id == $chapter->user_id) || ($chapter->published && $user->hasPermissions(UserPermission::UPDATE));
     }
 
     /**
