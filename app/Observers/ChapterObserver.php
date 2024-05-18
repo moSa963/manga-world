@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Chapter;
 use App\Services\StoragePathService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ChapterObserver
@@ -13,7 +14,9 @@ class ChapterObserver
      */
     public function created(Chapter $chapter): void
     {
-        //
+        $chapter->series()->update([
+            "updated_at" => Carbon::now(),
+        ]);
     }
 
     /**
