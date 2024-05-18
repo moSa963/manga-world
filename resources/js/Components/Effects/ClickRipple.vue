@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 const emits = defineEmits<{
-    click: [],
+    click: [MouseEvent],
 }>();
 
 const pos = ref<{ x: number, y: number } | null>(null);
@@ -28,19 +28,19 @@ const handleAnimationend = () => {
     animEnd.value = true;
 }
 
-const handleClick = () => {
+const handleClick = (e: MouseEvent) => {
     if (animEnd.value) {
-        return clickAction();
+        return clickAction(e);
     }
 
     setTimeout(() => {
-        clickAction();
+        clickAction(e);
     }, 200);
 }
 
-const clickAction = () => {
+const clickAction = (e: MouseEvent) => {
     if (!props.disabled) {
-        emits('click');
+        emits('click', e);
     }
 
     pos.value = null;
