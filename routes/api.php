@@ -55,6 +55,7 @@ Route::controller(PublishSeriesController::class)
 Route::controller(ChapterController::class)
     ->group(function () {
         Route::get("series/{series}/chapters", "index")->name("api.chapter.list");
+        Route::post("series/{series}/chapters", "store")->name("api.chapter.store");
     });
 
 Route::controller(SeriesImageController::class)

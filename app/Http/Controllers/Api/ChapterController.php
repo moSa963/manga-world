@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreChapterRequest;
 use App\Http\Resources\ChapterResource;
 use App\Models\Chapter;
 use App\Models\Series;
@@ -29,9 +30,13 @@ class ChapterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreChapterRequest $request, Series $series)
     {
-        //
+        Gate::authorize("create", [Chapter::class, $series]);
+
+        $chapter = $request->store($series);
+
+        return new ChapterResource($chapter);
     }
 
     /**
