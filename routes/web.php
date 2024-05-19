@@ -45,6 +45,7 @@ Route::controller(SeriesController::class)
 Route::controller(ChapterController::class)
     ->group(function () {
         Route::get('/series/{series}/chapter/new', "create")->name("chapter.create");
+        Route::post('/series/{series}/chapter/new', "store")->name("chapter.store");
         Route::get('/series/{series}/chapter/{chapter:number}', "show")->name("chapter.show");
     });
 
