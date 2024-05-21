@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Chapter;
 use App\Models\Series;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,6 +22,7 @@ class ChapterFactory extends Factory
     {
         return [
             "series_id" => null,
+            "user_id" => null,
             "number" => null,
             "title" => $this->faker->name(),
             "published" => true,
@@ -33,6 +35,9 @@ class ChapterFactory extends Factory
         return $this->afterMaking(function (Chapter $chapter) {
             if ($chapter->series_id == null) {
                 $chapter->series_id = Series::factory()->createOne()->id;
+            }
+            if ($chapter->user_id == null) {
+                $chapter->user_id = User::factory()->createOne()->id;
             }
             if ($chapter->number == null) {
                 $chapter->number = $chapter->series->chapters()->count();

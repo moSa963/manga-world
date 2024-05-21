@@ -10,12 +10,18 @@ class Chapter extends Model
     use HasFactory;
 
     protected $fillable = [
+        "user_id",
         "series_id",
         "number",
         "title",
         "published",
         "release_date"
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function series()
     {

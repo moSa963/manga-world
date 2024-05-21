@@ -24,6 +24,7 @@ class StoreChapterRequest extends FormRequest
 
         $chapter =  Chapter::create([
             "series_id" => $series->id,
+            "user_id" => Auth::id(),
             "number" => $this->validated('number'),
             "title" => $this->validated('title'),
             "published" => false,
