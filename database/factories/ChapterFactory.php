@@ -40,7 +40,7 @@ class ChapterFactory extends Factory
                 $chapter->user_id = User::factory()->createOne()->id;
             }
             if ($chapter->number == null) {
-                $chapter->number = $chapter->series->chapters()->count();
+                $chapter->number = $chapter->series->allChapters()->count();
             }
         });
     }

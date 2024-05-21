@@ -29,7 +29,7 @@ class Series extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function chapters()
+    public function allChapters()
     {
         return $this->hasMany(Chapter::class);
     }

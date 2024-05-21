@@ -32,7 +32,7 @@ class ChapterController extends Controller
 
         return Inertia::render('CreateChapter/CreateChapterPage', [
             "series" => $series,
-            "number" => $series->chapters()->orderBy('number', "DESC")->first()?->number + 1 ?? 0,
+            "number" => $series->allChapters()->orderBy('number', "DESC")->first()?->number + 1 ?? 0,
         ]);
     }
 

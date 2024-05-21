@@ -20,7 +20,7 @@ class StoreChapterRequest extends FormRequest
 
     public function store(Series $series): Chapter
     {
-        abort_if($series->chapters()->where('number', $this->validated('number'))->exists(), 422, 'Number field must be unique');
+        abort_if($series->allChapters()->where('number', $this->validated('number'))->exists(), 422, 'Number field must be unique');
 
         $chapter =  Chapter::create([
             "series_id" => $series->id,
