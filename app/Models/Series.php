@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\UserPermission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Series extends Model
@@ -32,6 +33,25 @@ class Series extends Model
     public function allChapters()
     {
         return $this->hasMany(Chapter::class);
+    }
+
+    public function chapters()
+    {
+        if (!Auth::check()) {
+            return $this->hasMany(Chapter::class)->where('published', true);
+        }
+
+        $user = Auth::user();
+
+        return $this->hasMany(Chapter::class)
+            ->where('published', true)
+            ->orWhereHas('user', function ($query) use ($user) {
+                $query->where('users.id', $user->id)
+                    ->orWhere('users.admin', true)
+                    ->orWhereHas('permissions', function ($q) use ($user) {
+                        $q->where('permissions.name', UserPermission::APPROVE);
+                    });
+            });
     }
 
     static public function for(?User $user)
