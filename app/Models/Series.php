@@ -42,15 +42,16 @@ class Series extends Model
         }
 
         $user = Auth::user();
+
+        if ($user->admin || $user->hasPermissions(UserPermission::APPROVE)) {
+            return $this->allChapters();
+        }
+
         return $this->hasMany(Chapter::class)
             ->where(function ($q) use ($user) {
                 return $q->where('published', true)
                     ->orWhereHas('user', function ($query) use ($user) {
-                        $query->where('users.id', $user->id)
-                            ->orWhere('users.admin', true)
-                            ->orWhereHas('permissions', function ($q) {
-                                $q->where('permissions.name', UserPermission::APPROVE);
-                            });
+                        $query->where('users.id', $user->id);
                     });
             });
     }
