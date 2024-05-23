@@ -66,4 +66,9 @@ class ChapterPolicy
         //
         return false;
     }
+
+    public function publish(User $user)
+    {
+        return $user->isAdmin() || $user->hasPermissions(UserPermission::APPROVE);
+    }
 }
