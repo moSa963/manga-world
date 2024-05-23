@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthUserController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\PublishChapterController;
 use App\Http\Controllers\Api\PublishSeriesController;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeriesImageController;
@@ -50,6 +51,11 @@ Route::controller(SeriesController::class)
 Route::controller(PublishSeriesController::class)
     ->group(function () {
         Route::get("series/{series}/publish", "store")->name("api.series.publish");
+    });
+
+Route::controller(PublishChapterController::class)
+    ->group(function () {
+        Route::get("series/{series}/chapters/{chapter:number}/publish", "store")->name("api.chapter.publish");
     });
 
 Route::controller(ChapterController::class)
