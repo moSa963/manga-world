@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,5 +42,16 @@ class Chapter extends Model
     public function prev(): Chapter | null
     {
         return Chapter::where("series_id", $this->series_id)->where("number", "<", $this->number)->orderBy("number", "desc")->first();
+    }
+
+    public function publish()
+    {
+        if (!$this->update(["published" => true,])) {
+            return;
+        };
+
+        $this->series()->update([
+            "updated_at" => Carbon::now(),
+        ]);
     }
 }
