@@ -7,6 +7,7 @@ use App\Http\Requests\StoreChapterRequest;
 use App\Http\Resources\ChapterResource;
 use App\Models\Chapter;
 use App\Models\Series;
+use App\Services\ChapterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,11 +20,15 @@ class ChapterController extends Controller
     {
         Gate::authorize("view", $series);
 
-        $data = $series->chapters()
-            ->orderBy("number", $request->query("order", 'new') == "new" ? 'desc' : 'asc')
-            ->simplePaginate(5)
-            ->withQueryString();
+        $q = $series->chapters()
+            ->orderBy("number", $request->query("order", 'new') == "new" ? 'desc' : 'asc');
 
+        ChapterService::filterQuery(
+            $q,
+            $request->query('filter', ''),
+        );
+
+        $data = $q->simplePaginate(5)->withQueryString();
         return ChapterResource::collection($data);
     }
 
