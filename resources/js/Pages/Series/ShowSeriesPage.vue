@@ -7,6 +7,7 @@ import { Series, User } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import Button from '@/Components/ButtonGroup/Button.vue';
 import { hasPermission } from '@/utils/Permissions';
+import ToggleButton from '@/Components/Input/ToggleButton.vue';
 const props = defineProps<{
     series: Series,
     auth: {
@@ -15,6 +16,7 @@ const props = defineProps<{
 }>();
 
 const seriesRef = ref(props.series);
+const filter = ref<string>('');
 
 const handleChange = (series: Series) => {
     seriesRef.value = series;
@@ -29,7 +31,7 @@ const handleChange = (series: Series) => {
             <div class="w-full flex flex-col sm:flex-row pb-96 pt-11 ">
 
                 <div class="flex-[2] overflow-hidden relative ">
-                    <ChaptersList :series="seriesRef" />
+                    <ChaptersList :series="seriesRef" :filter="filter" />
                 </div>
 
                 <div class="flex-1 flex flex-col items-center">
@@ -39,6 +41,9 @@ const handleChange = (series: Series) => {
                             <p>Add new chapter</p>
                         </Button>
                         </Link>
+                    </div>
+                    <div v-if="hasPermission(auth.user, 'approve')" class="w-full flex flex-col items-center mt-2">
+                        <ToggleButton allow-empty :values="['published', 'unpublished']" v-model="filter" />
                     </div>
                 </div>
             </div>

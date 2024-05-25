@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Chapter, Response, Series } from '@/types';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import { ref } from 'vue';
 import fetchList from '@/utils/FetchList';
 import ListDrawer from './ListDrawer.vue';
@@ -8,6 +8,7 @@ import List from './List.vue';
 
 const props = defineProps<{
     series: Series,
+    filter: string;
 }>();
 
 const newChapters = ref<Response<Chapter> | null>(null);
@@ -15,18 +16,28 @@ const oldChapters = ref<Response<Chapter> | null>(null);
 const progress = ref<boolean>(false);
 
 onMounted(async () => {
-    await fetchList(newChapters, newChapters.value ? newChapters.value.links.next : route("api.chapter.list", {
+    await load();
+});
+
+watch(props, async () => {
+    await load();
+});
+
+const load = async () => {
+    await fetchList(newChapters, route("api.chapter.list", {
         series: props.series,
         order: "new",
-    }), progress);
+        filter: props.filter,
+    }), progress, true);
 
-    await fetchList(oldChapters, oldChapters.value ? oldChapters.value.links.next : route("api.chapter.list", {
+    await fetchList(oldChapters, route("api.chapter.list", {
         series: props.series,
         order: "old",
-    }), progress);
+        filter: props.filter,
+    }), progress, true);
 
     checkIntersection();
-});
+}
 
 const loadNew = async () => {
     await fetchList(newChapters, newChapters.value?.links.next || null, progress);
