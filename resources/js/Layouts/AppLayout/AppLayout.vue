@@ -25,7 +25,7 @@ const handleThemeModeChange = (mode: string) => {
 
         <div :class="`${theme} min-h-screen relative divide-primary bg-surface-0 text-primary`">
             <AppBar :theme-mode="theme" @theme-change="handleThemeModeChange" :hidden="Boolean(hideAppBar)" />
-            <div class=" bg-inherit flex flex-col items-center">
+            <div class=" bg-inherit flex flex-col items-center pb-56">
                 <slot />
             </div>
         </div>
