@@ -23,8 +23,8 @@ defineEmits<{
             <div v-if="src" class="h-full aspect-square overflow-hidden">
                 <img :src="src" class="object-cover" />
             </div>
-            <div class="flex flex-col h-full justify-center">
-                <p>{{ title }}</p>
+            <div class="flex-1 flex flex-col h-full justify-center overflow-hidden">
+                <p class="w-full text-nowrap overflow-hidden overflow-ellipsis">{{ title }}</p>
                 <p v-if="secondary" class="text-divider text-sm">{{ secondary }}</p>
             </div>
             <slot />
