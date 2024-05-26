@@ -28,9 +28,9 @@ const handleChange = (series: Series) => {
     <AppLayout :title="seriesRef.title">
         <div class="w-full max-w-7xl">
             <SeriesBanner :series="seriesRef" @change="handleChange" />
-            <div class="w-full flex flex-col sm:flex-row pb-96 pt-11 ">
+            <div class="w-full flex flex-col-reverse sm:flex-row pb-96 pt-11 ">
 
-                <div class="flex-[2] overflow-hidden relative ">
+                <div class="flex-[2] overflow-hidden relative my-5 sm:my-0">
                     <ChaptersList :series="seriesRef" :filter="filter" />
                 </div>
 
