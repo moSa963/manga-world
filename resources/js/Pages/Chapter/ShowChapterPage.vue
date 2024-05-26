@@ -6,6 +6,7 @@ import { onMounted, ref } from 'vue';
 import PageToolsBar from './ChapterPageToolsBar.vue';
 import ArrowCollapseDownIcon from 'vue-material-design-icons/ArrowCollapseDown.vue';
 import IconButton from '@/Components/IconButton.vue';
+import PublishChapterButton from '@/Components/Actions/PublishChapterButton.vue';
 
 const props = defineProps<{
     chapter: Chapter,
@@ -16,7 +17,7 @@ const props = defineProps<{
 
 const data = ref<Array<string>>([]);
 const hidden = ref<boolean>(false);
-
+const refChapter = ref(props.chapter);
 
 const loadData = async () => {
 
@@ -41,6 +42,10 @@ onMounted(loadData);
 const handleVisibilityClick = () => {
     hidden.value = !hidden.value;
 }
+
+const handlePublished = (v: Chapter) => {
+    refChapter.value = v;
+}
 </script>
 
 <template>
@@ -58,5 +63,6 @@ const handleVisibilityClick = () => {
             <img class="max-w-4xl mb-3" v-for="(item, index) in data" :key="index" :src="item" />
             <CircularProgress class="size-24" v-if="data.length != chapter.pages.length" />
         </div>
+        <PublishChapterButton class="w-1/2" :series="series" :chapter="refChapter" @change="handlePublished" />
     </AppLayout>
 </template>
