@@ -25,7 +25,7 @@ class ChapterController extends Controller
      */
     public function create(Series $series)
     {
-        Gate::authorize("create", Series::class);
+        Gate::authorize("create", [Chapter::class, $series]);
 
         $series = new SeriesResource($series);
         $series->wrap(null);
