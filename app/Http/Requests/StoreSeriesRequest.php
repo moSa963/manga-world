@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\SeriesStatus;
 use App\Enums\SeriesTypes;
+use App\Models\Genre;
 use App\Models\Series;
 use App\Models\User;
 use App\Rules\ImageFileRule;
@@ -30,6 +31,7 @@ class StoreSeriesRequest extends FormRequest
             ...$this->validated(),
             "other_names" => implode(',', $this->validated("other_names", [])),
             "release_date" => new Carbon($this->validated("release_date")),
+            "genres" => implode(',', Genre::whereIn('name', $this->validated("genres", []))->pluck('name')->all()),
         ]);
 
         $this->file("poster")->storeAs(StoragePathService::forPoster($series));
@@ -54,6 +56,8 @@ class StoreSeriesRequest extends FormRequest
             "author" => ["string"],
             "other_names" => ["array"],
             "other_names.*" => ["string", "regex:/^[^,]*$/"],
+            "genres" => ["array"],
+            "genres.*" => ["string", "regex:/^[a-zA-Z]+$/"],
             "type" => ["required", "regex:/{$types}/"],
             "status" => ["required", "regex:/{$status}/"],
             "release_date" => ["required", "date"],
