@@ -23,6 +23,7 @@ class Series extends Model
         "status",
         "release_date",
         "published",
+        "genres",
     ];
 
     public function user()

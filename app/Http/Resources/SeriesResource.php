@@ -23,6 +23,7 @@ class SeriesResource extends JsonResource
             "author" => $this->author,
             "status" => $this->status,
             "otherNames" => $this->other_names,
+            "genres" => $this->genres,
             "type" => $this->type,
             "published" => boolval($this->published),
             "releaseDate" => $this->release_date,
