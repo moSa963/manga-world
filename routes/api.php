@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthUserController;
 use App\Http\Controllers\Api\ChapterController;
+use App\Http\Controllers\Api\GenreController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\PublishChapterController;
@@ -79,4 +80,11 @@ Route::controller(PermissionController::class)
     ->group(function () {
         Route::post('/users/{user:username}/permissions/{permission}', "store")->name("api.permissions.store");
         Route::delete('/users/{user:username}/permissions/{permission:name}', "destroy")->name("api.permissions.delete");
+    });
+
+Route::controller(GenreController::class)
+    ->group(function () {
+        Route::get('/genres', "index")->name("api.genres.list");
+        Route::post('/genres', "store")->name("api.genres.store");
+        Route::delete('/genres/{genre:name}', "destroy")->name("api.genres.delete");
     });
