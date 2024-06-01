@@ -12,6 +12,7 @@ import TextInput from '@/Components/Input/TextInput/TextInput.vue';
 const props = defineProps<{
     types: string[],
     status: string[],
+    genres: string[],
 }>();
 
 const form = useForm({
@@ -24,6 +25,7 @@ const form = useForm({
     release_date: '',
     other_names: [],
     poster: '',
+    genres: [],
 });
 
 const handleSave = async () => {
@@ -68,6 +70,11 @@ const handleSave = async () => {
             <div class="bg-surface-50 w-full p-4 flex gap-2 flex-wrap mt-4 items-center">
                 <InputLabel value="Release date: " />
                 <input type="date" class="bg-inherit" v-model="form.release_date" />
+            </div>
+
+            <div class="bg-surface-50 w-full p-4 mt-4">
+                <MultiTextInput v-model="form.genres" label="Genres" :error="form.errors.genres" strict
+                    :options="genres" />
             </div>
 
             <div class="bg-surface-50 w-full p-4 mt-4">

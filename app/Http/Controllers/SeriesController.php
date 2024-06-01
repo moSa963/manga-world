@@ -6,6 +6,7 @@ use App\Enums\SeriesStatus;
 use App\Enums\SeriesTypes;
 use App\Http\Requests\StoreSeriesRequest;
 use App\Http\Resources\SeriesResource;
+use App\Models\Genre;
 use App\Models\Series;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class SeriesController extends Controller
         return Inertia::render('CreateSeries/CreateSeriesPage', [
             "status" => SeriesStatus::values(),
             "types" => SeriesTypes::values(),
+            "genres" => Genre::all()->pluck('name'),
         ]);
     }
 
