@@ -8,7 +8,7 @@ import ScrollableBox from '@/Components/ScrollableBox.vue';
 const theme = ref<"light" | "dark">("dark");
 
 defineProps<{
-    selected: 'users' | 'series',
+    selected: 'users' | 'series' | 'genres',
 }>();
 
 onMounted(() => {
