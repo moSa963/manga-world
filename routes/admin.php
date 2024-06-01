@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administration\GenreController;
 use App\Http\Controllers\Administration\SeriesController;
 use App\Http\Controllers\Administration\UsersController;
 use Illuminate\Http\Request;
@@ -17,5 +18,10 @@ Route::prefix("admin")
         Route::controller(SeriesController::class)
             ->group(function () {
                 Route::get('series', "index")->name("admin.series.list");
+            });
+
+        Route::controller(GenreController::class)
+            ->group(function () {
+                Route::get('genre', "index")->name("admin.genres.list");
             });
     });
