@@ -33,6 +33,7 @@ export interface Series {
     chaptersCount: string,
     latestChapters: Array<Chapter>,
     published: boolean,
+    genres: string
 }
 
 export interface Chapter {
