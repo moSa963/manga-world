@@ -25,7 +25,7 @@ const getHeaders = () => {
     return headers;
 }
 
-const apiRequest = async (url: string, method = "GET", data = null) => {
+const apiRequest = async (url: string, method = "GET", data: any = null) => {
     var body = <RequestInit>{
         headers: getHeaders(),
         method: method,
