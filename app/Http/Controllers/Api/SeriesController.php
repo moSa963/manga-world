@@ -25,7 +25,8 @@ class SeriesController extends Controller
             $q,
             $request->query('key', ''),
             $request->query('filter', ''),
-            $request->query('sort', 'new')
+            $request->query('sort', 'new'),
+            $request->query('genre', ''),
         );
 
         $count = $request->query('count', 15);

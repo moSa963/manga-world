@@ -8,13 +8,15 @@ use Illuminate\Support\Facades\DB;
 
 class SeriesService
 {
-    static function filterQuery(Builder $q, string $searchKey, string $publicationStatus, string $orderBy): Builder
+    static function filterQuery(Builder $q, string $searchKey, string $publicationStatus, string $orderBy, string $genre): Builder
     {
         SeriesService::addSearchKey($q, $searchKey);
 
         SeriesService::addPublicationStatus($q, $publicationStatus);
 
         SeriesService::addOrderBy($q, $orderBy);
+
+        SeriesService::filterByGenre($q, $genre);
 
         return $q;
     }
@@ -46,5 +48,14 @@ class SeriesService
         } else if ($orderBy === "new_add") {
             $q->orderBy('updated_at', 'DESC');
         }
+    }
+
+    private static function filterByGenre(Builder $q, string $genre)
+    {
+        if (empty($genre)) {
+            return;
+        }
+
+        $q->where('genres', 'like', "%{$genre}%");
     }
 }
