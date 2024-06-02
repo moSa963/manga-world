@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import Viewer from '@/Components/ListViewer/ListViewer.vue';
 import AppLayout from '@/Layouts/AppLayout/AppLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import SeriesViewer from './SeriesViewer.vue';
+import SeriesList from './SeriesList/SeriesList.vue';
+import Button from '@/Components/ButtonGroup/Button.vue';
+import { hasPermission } from '@/utils/Permissions';
+import { User } from '@/types';
 
 defineProps<{
-    canLogin?: boolean;
-    canRegister?: boolean;
-    laravelVersion: string;
-    phpVersion: string;
+    auth: {
+        user: User
+    };
 }>();
 
 </script>
@@ -17,6 +19,22 @@ defineProps<{
     <AppLayout title="Home">
 
         <SeriesViewer />
+
+
+        <div class="w-full flex pt-20 flex-col-reverse md:flex-row gap-4">
+            <div class="flex-1">
+                <SeriesList title="Shonen" genre="shonen" />
+                <SeriesList title="Comedy" genre="comedy" />
+                <SeriesList title="Action" genre="action" />
+            </div>
+            <div class="w-full md:w-64">
+                <Link v-if="hasPermission(auth.user, 'admin')" :href="route('admin.users.list')">
+                <Button border>
+                    <p>Admin</p>
+                </Button>
+                </Link>
+            </div>
+        </div>
 
     </AppLayout>
 </template>

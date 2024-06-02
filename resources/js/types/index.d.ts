@@ -7,7 +7,7 @@ export interface User {
     email_verified_at: string;
     permissions?: Array<string>;
 }
-export type Permission = 'create' | 'delete' | 'update' | 'approve';
+export type Permission = 'create' | 'delete' | 'update' | 'approve' | 'admin';
 
 export interface ScreenInfo {
     size: "sm" | "md" | "lg",
