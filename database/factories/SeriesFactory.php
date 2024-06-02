@@ -34,6 +34,7 @@ class SeriesFactory extends Factory
             "status" => SeriesStatus::ONGOING,
             "release_date" => Carbon::now(),
             "published" => true,
+            "genres" => ["shonen", "comedy", "action"][rand(0, 2)]
         ];
     }
 
