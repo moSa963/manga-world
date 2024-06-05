@@ -44,7 +44,7 @@ const handleRemove = (index: number) => {
         <InputLabel v-if="label" :value="label" />
         <div class="flex items-center gap-1">
             <TextInput type="text" class="mt-1 block w-full" v-model="v" placeholder="Name..." @enter-press="handleAdd"
-                :hints="options" />
+                :hints="options" :strict="strict" />
 
             <Button class="h-full" border @click="handleAdd">
                 <p class="px-3"> Add</p>

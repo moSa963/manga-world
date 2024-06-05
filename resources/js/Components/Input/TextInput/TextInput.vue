@@ -6,13 +6,15 @@ import TextInputHintsCard from './TextInputHintsCard.vue';
 const model = defineModel<string>({ required: true });
 
 const input = ref<HTMLInputElement | null>(null);
+const focus = ref<boolean>();
 
 const props = defineProps<{
     label?: string,
     placeholder?: string,
     type?: string,
     error?: string | null,
-    hints?: string[]
+    hints?: string[],
+    strict?: boolean,
 }>();
 
 onMounted(() => {
@@ -29,7 +31,7 @@ const emit = defineEmits<{
 
 const hints = computed(() => {
     const res = props?.hints?.filter(e => e.includes(model.value));
-    const open = res && model.value.length > 0 && res.length > 0;
+    const open = res && ((props.strict && focus.value) || (model.value.length > 0 && res.length > 0));
 
     return open ? res : null;
 })
@@ -62,6 +64,17 @@ const inputClass = computed(() => {
 
 const handleHintClick = (hint: string) => {
     model.value = hint;
+    input.value?.focus();
+}
+
+const handleFocus = () => {
+    focus.value = true;
+}
+
+const handleFocusOut = () => {
+    setTimeout(() => {
+        focus.value = false;
+    }, 100);
 }
 </script>
 
@@ -69,7 +82,7 @@ const handleHintClick = (hint: string) => {
     <div class="relative bg-inherit border-none">
         <InputLabel v-if="label" :value="label" />
         <input :placeholder="placeholder" :type="type" :class="inputClass" v-model="model" ref="input"
-            @keypress="handelKey" />
+            @keypress="handelKey" @focus="handleFocus" @focusout="handleFocusOut" />
 
         <p v-if="error" class="text-xs text-red-500">
             {{ error }}
