@@ -22,9 +22,11 @@ defineProps<{
 
 
         <div class="w-full flex pt-20 flex-col-reverse md:flex-row gap-4">
-            <div class="flex-1">
+            <div class="flex-1 px-4">
                 <SeriesList title="Shonen" genre="shonen" />
+                <hr />
                 <SeriesList title="Comedy" genre="comedy" />
+                <hr />
                 <SeriesList title="Action" genre="action" />
             </div>
             <div class="w-full md:w-64">
