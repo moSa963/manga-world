@@ -54,7 +54,7 @@ class StoreChapterRequest extends FormRequest
             "title" => ['required', 'string'],
             "release_date" => ['required', 'date'],
             'pages' => ['required', 'array'],
-            'pages.*' => ['file', "mimetypes:image/*"]
+            'pages.*' => ['file', "mimetypes:image/*", 'distinct']
         ];
     }
 }
