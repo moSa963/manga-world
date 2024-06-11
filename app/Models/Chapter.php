@@ -54,4 +54,10 @@ class Chapter extends Model
             "updated_at" => Carbon::now(),
         ]);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(ChapterComment::class)
+            ->withSum('votes', 'vote');
+    }
 }
