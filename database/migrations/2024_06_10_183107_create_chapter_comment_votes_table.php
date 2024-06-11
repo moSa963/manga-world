@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chapter_comments_votes', function (Blueprint $table) {
+        Schema::create('chapter_comment_votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->foreignId("chapter_comment_id")->constrained()->cascadeOnDelete();
