@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthUserController;
+use App\Http\Controllers\Api\ChapterCommentController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\GenreController;
 use App\Http\Controllers\Api\PageController;
@@ -73,6 +74,12 @@ Route::controller(SeriesImageController::class)
 Route::controller(PageController::class)
     ->group(function () {
         Route::get('/series/{series}/chapter/{chapter:number}/page/{page:number}', "show")->name("page.show");
+    });
+
+Route::controller(ChapterCommentController::class)
+    ->group(function () {
+        Route::get('/series/{series}/chapters/{chapter:number}/comments', "index")->name("api.chapter.comments.list");
+        Route::post('/series/{series}/chapters/{chapter:number}/comments', "store")->name("api.chapter.comments.store");
     });
 
 Route::controller(PermissionController::class)
