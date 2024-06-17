@@ -49,6 +49,14 @@ export interface Page {
     number: number,
 }
 
+export interface Comment {
+    id: number,
+    username: string,
+    chapter_id: number,
+    comment: string,
+    vote: number,
+    voted: number,
+}
 
 export interface Response<T> {
     data: Array<T>,
