@@ -28,4 +28,13 @@ class ChapterComment extends Model
     {
         return $this->hasMany(ChapterCommentVote::class);
     }
+
+    public function voted(?User $user)
+    {
+        if ($user == null) return 0;
+
+        $vote = $this->votes()->where('user_id', $user->id)->first();
+
+        return $vote?->vote ?? 0;
+    }
 }
