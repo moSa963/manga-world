@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->foreignId("chapter_comment_id")->constrained()->cascadeOnDelete();
-            $table->enum("vote", [1, 0, -1]);
+            $table->smallInteger("vote");
             $table->unique(["user_id", "chapter_comment_id"]);
             $table->timestamps();
         });
