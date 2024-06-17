@@ -20,6 +20,7 @@ class ChapterCommentResource extends JsonResource
             "chapter_id" => $this->chapter_id,
             "comment" => $this->comment,
             "vote" => $this->votes_sum_vote,
+            "voted" => $this->voted($request->user()),
             "created_at" => $this->created_at
         ];
     }
