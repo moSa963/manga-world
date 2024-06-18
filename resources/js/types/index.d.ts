@@ -52,10 +52,11 @@ export interface Page {
 export interface Comment {
     id: number,
     username: string,
-    chapter_id: number,
+    chapter_number: number,
     comment: string,
     vote: number,
     voted: number,
+    created_at: string,
 }
 
 export interface Response<T> {
