@@ -41,7 +41,7 @@ Route::controller(UsersController::class)
 
 Route::controller(UserImageController::class)
     ->group(function () {
-        Route::get("users/{user:username}/image", "show")->middleware('auth:sanctum')->name("api.users.image.show");
+        Route::get("users/{user:username}/image", "show")->name("api.users.image.show");
     });
 
 Route::controller(SeriesController::class)
