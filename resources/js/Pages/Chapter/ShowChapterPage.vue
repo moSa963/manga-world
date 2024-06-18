@@ -4,6 +4,7 @@ import AppLayout from '@/Layouts/AppLayout/AppLayout.vue';
 import { Chapter, Series } from '@/types';
 import { onMounted, ref } from 'vue';
 import PageToolsBar from './ChapterPageToolsBar.vue';
+import PagesList from './PagesList.vue';
 import ArrowCollapseDownIcon from 'vue-material-design-icons/ArrowCollapseDown.vue';
 import IconButton from '@/Components/IconButton.vue';
 import PublishChapterButton from '@/Components/Actions/PublishChapterButton.vue';
@@ -15,29 +16,8 @@ const props = defineProps<{
     series: Series,
 }>();
 
-const data = ref<Array<string>>([]);
 const hidden = ref<boolean>(false);
 const refChapter = ref(props.chapter);
-
-const loadData = async () => {
-
-    for (var page of props.chapter.pages) {
-        const res = await fetch(route("page.show", {
-            series: props.series.id,
-            chapter: props.chapter.number,
-            page: page.number,
-        }));
-
-        if (!res.ok) return;
-
-        const blob = await res.blob();
-
-        data.value.push(URL.createObjectURL(blob));
-    }
-
-}
-
-onMounted(loadData);
 
 const handleVisibilityClick = () => {
     hidden.value = !hidden.value;
@@ -59,10 +39,8 @@ const handlePublished = (v: Chapter) => {
             </IconButton>
         </div>
 
-        <div class="w-full flex flex-col items-center">
-            <img class="max-w-4xl mb-3" v-for="(item, index) in data" :key="index" :src="item" />
-            <CircularProgress class="size-24" v-if="data.length != chapter.pages.length" />
-        </div>
+        <PagesList :chapter="chapter" :series="series" />
+
         <PublishChapterButton class="w-1/2" :series="series" :chapter="refChapter" @change="handlePublished" />
     </AppLayout>
 </template>
