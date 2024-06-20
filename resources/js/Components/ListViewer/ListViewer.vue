@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 onMounted(() => {
     setInterval(() => {
-        if (!hover.value) {
+        if (!hover.value && !document.hidden) {
             index.value++;
         }
     }, 8000);
