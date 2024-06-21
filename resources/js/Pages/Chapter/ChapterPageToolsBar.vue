@@ -29,6 +29,7 @@ const goTo = (number: number | null) => {
             <ArrowLeftIcon />
         </Button>
         </Link>
+        <slot />
         <div class="flex-grow flex justify-center items-center">
             <p class="font-bold text-xl">Chapter {{ chapter.number }}</p>
         </div>
