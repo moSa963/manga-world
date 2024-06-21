@@ -18,7 +18,10 @@ class ChapterCommentController extends Controller
     {
         Gate::authorize("view", $series);
 
-        $comments = $chapter->comments()->simplePaginate()->withQueryString();;
+        $comments = $chapter->comments()
+            ->orderBy("votes_sum_vote")
+            ->orderBy("created_at", "DESC")
+            ->simplePaginate()->withQueryString();;
 
         return ChapterCommentResource::collection($comments);
     }
