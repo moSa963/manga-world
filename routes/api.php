@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthUserController;
 use App\Http\Controllers\Api\ChapterCommentController;
+use App\Http\Controllers\Api\ChapterCommentVoteController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\GenreController;
 use App\Http\Controllers\Api\PageController;
@@ -80,6 +81,12 @@ Route::controller(ChapterCommentController::class)
     ->group(function () {
         Route::get('/series/{series}/chapters/{chapter:number}/comments', "index")->name("api.chapter.comments.list");
         Route::post('/series/{series}/chapters/{chapter:number}/comments', "store")->name("api.chapter.comments.store");
+    });
+
+Route::controller(ChapterCommentVoteController::class)
+    ->group(function () {
+        Route::post('/chapters/comments/{comment}/vote/{value}', "store")->name("api.chapter.comments.vote.store");
+        Route::delete('/chapters/comments/{comment}/vote', "destroy")->name("api.chapter.comments.vote.delete");
     });
 
 Route::controller(PermissionController::class)
