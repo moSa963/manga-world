@@ -19,7 +19,7 @@ class ChapterCommentController extends Controller
         Gate::authorize("view", $series);
 
         $comments = $chapter->comments()
-            ->orderBy("votes_sum_vote")
+            ->orderBy("votes_sum_vote", "DESC")
             ->orderBy("created_at", "DESC")
             ->simplePaginate()->withQueryString();;
 
