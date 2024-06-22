@@ -37,4 +37,15 @@ class ChapterComment extends Model
 
         return $vote?->vote ?? 0;
     }
+
+    public function vote(User $user, $val)
+    {
+        ChapterCommentVote::updateOrCreate(
+            [
+                "user_id" => $user->id,
+                "chapter_comment_id" => $this->id,
+            ],
+            ['vote' => $val]
+        );
+    }
 }
