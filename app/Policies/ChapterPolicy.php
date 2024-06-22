@@ -49,26 +49,13 @@ class ChapterPolicy
         return $user->isAdmin() || (!$chapter->published && $user->id == $chapter->user_id);
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Chapter $chapter): bool
-    {
-        //
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Chapter $chapter): bool
-    {
-        //
-        return false;
-    }
-
     public function publish(User $user)
     {
         return $user->isAdmin() || $user->hasPermissions(UserPermission::APPROVE);
+    }
+
+    public function vote(User $user): bool
+    {
+        return true;
     }
 }
