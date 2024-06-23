@@ -20,12 +20,12 @@ class StoreChapterCommentRequest extends FormRequest
 
     public function store(Chapter $chapter): ChapterComment
     {
-        if (RateLimiter::tooManyAttempts($this->limiterKey(), 1)) {
-            $seconds = RateLimiter::availableIn($this->limiterKey());
+        if (RateLimiter::tooManyAttempts($this->limiterKey($chapter), 1)) {
+            $seconds = RateLimiter::availableIn($this->limiterKey($chapter));
             abort(429, 'You may try again in ' . $seconds . ' seconds.');
         }
 
-        RateLimiter::hit($this->limiterKey(), 300);
+        RateLimiter::hit($this->limiterKey($chapter), 300);
 
         return ChapterComment::create([
             "user_id" => Auth::id(),
@@ -34,9 +34,9 @@ class StoreChapterCommentRequest extends FormRequest
         ]);
     }
 
-    private function limiterKey(): string
+    private function limiterKey(Chapter $chapter): string
     {
-        return 'store comment:' . Auth::user()->username;
+        return 'store comment:' . $chapter->id . Auth::user()->username;
     }
 
     /**
