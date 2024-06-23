@@ -11,6 +11,7 @@ const props = withDefaults(
     defineProps<{
         scale?: number,
         disabled?: boolean,
+        noHover?: boolean
     }>(),
     {
         scale: 0.95,
@@ -40,7 +41,7 @@ const itemStyle = computed(() => {
 
 <template>
     <div @click="handleClick" @mousedown="handleDown" @mouseup="handleUp" @mouseleave="handleUp"
-        :class="`root relative cursor-pointer overflow-hidden select-none ${disabled ? '' : 'hover:after:bg-divider/10'}`"
+        :class="`root relative cursor-pointer overflow-hidden select-none ${disabled || noHover ? '' : 'hover:after:bg-divider/10'}`"
         :style="itemStyle">
         <slot />
     </div>
