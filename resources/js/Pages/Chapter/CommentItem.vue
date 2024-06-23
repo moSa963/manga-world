@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Comment } from '@/types';
 import { getPeriod } from '@/utils/DateTime';
+import CommentVote from './CommentVote.vue';
+
 
 defineProps<{
     comment: Comment
@@ -25,5 +27,7 @@ defineProps<{
                 {{ comment.comment }}
             </p>
         </div>
+
+        <CommentVote :comment="comment" />
     </div>
 </template>
