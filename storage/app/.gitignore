@@ -1,6 +1,4 @@
 *
+!private/
 !public/
 !.gitignore
-!/seeding_resources
-!/seeding_resources/*
-!/seeding_resources/*/*
