@@ -4,7 +4,7 @@ import { ref } from 'vue';
 
 withDefaults(
     defineProps<{
-        stroke: string,
+        stroke?: string,
     }>(),
     {
         stroke: "black"
