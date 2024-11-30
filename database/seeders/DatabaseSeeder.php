@@ -21,21 +21,21 @@ class DatabaseSeeder extends Seeder
     {
         $admin = User::factory()->create(["username" => "admin", "admin" => true]);
 
-        $series = Series::factory(30)->create();
+        $series = Series::factory(10)->create();
 
         $users = User::all();
 
         foreach ($series as $s) {
-            for ($i = 0; $i < 20; ++$i) {
+            for ($i = 0; $i < 10; ++$i) {
                 $chapter = Chapter::factory()->createOne(["series_id" => $s->id]);
 
                 if ($i > 10) {
-                    for ($c = 0; $c < 10; $c++) {
+                    for ($c = 0; $c < 5; $c++) {
                         $comment = ChapterComment::factory()->createOne([
                             "chapter_id" => $chapter->id,
                         ]);
 
-                        for ($k = 0; $k < 10; $k++) {
+                        for ($k = 0; $k < 5; $k++) {
                             ChapterCommentVote::create([
                                 "user_id" => $users[$k]->id,
                                 "chapter_comment_id" => $comment->id,

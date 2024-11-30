@@ -19,7 +19,7 @@ test('user can add a new chapter', function () {
     $response = $this->post("api/series/{$series->id}/chapters", [
         "number" => 1,
         "title" => "test chapter title",
-        "release_date" => "5/15/2025",
+        "release_date" => "2024-11-30",
         'pages' => [
             UploadedFile::fake()->image('page1.jpg'),
             UploadedFile::fake()->image('page2.jpg'),
