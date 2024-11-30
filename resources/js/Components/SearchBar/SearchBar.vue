@@ -27,10 +27,10 @@ const handelChange = (val: string) => {
 </script>
 
 <template>
-    <div :style="{ width: open ? '100%' : '0px', minWidth: 'fit-content' }"
-        class="relative border-inherit transition-[width] w-full max-w-sm flex">
+    <div :style="{ width: open ? '100%' : '0px', minWidth: 'min-content' }"
+        class="relative border-inherit transition-[width] w-fit max-w-sm flex">
         <div :style="{ borderWidth: open ? '1px' : '0px' }"
-            :class="`w-full flex bg-transparent border-inherit !border-b-0 rounded-t-lg select-none overflow-hidden`">
+            :class="`w-full flex bg-transparent border-inherit !border-b-0 !rounded-t-lg select-none overflow-hidden`">
 
             <SearchField :style="{ width: open ? '100%' : '0px' }" @change="handelChange" v-model="input" />
 
