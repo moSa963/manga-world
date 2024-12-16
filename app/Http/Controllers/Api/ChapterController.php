@@ -27,8 +27,9 @@ class ChapterController extends Controller
             $q,
             $request->query('filter', ''),
         );
+        $count = $request->query('count', 5);
+        $data = $q->simplePaginate($count <= 15 && $count >= 1 ? $count : 5)->withQueryString();
 
-        $data = $q->simplePaginate(5)->withQueryString();
         return ChapterResource::collection($data);
     }
 
