@@ -60,6 +60,16 @@ test('unauthorized user cannot add a new chapter', function () {
     $response->assertForbidden();
 });
 
+test('user can view a chapter', function () {
+    $user = User::factory()->createOne(['admin' => false]);
+    $chapter = Chapter::factory()->createOne();
+
+    Sanctum::actingAs($user);
+
+    $response = $this->get("api/series/{$chapter->series->id}/chapters/{$chapter->number}");
+    $response->assertSuccessful();
+});
+
 afterEach(function () {
     $series = Series::all();
 

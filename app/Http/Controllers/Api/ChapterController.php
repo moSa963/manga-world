@@ -48,9 +48,13 @@ class ChapterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Chapter $chapter)
+    public function show(Series $series, Chapter $chapter)
     {
-        //
+        Gate::authorize("view", $chapter);
+
+        $chapter->load("pages");
+
+        return new ChapterResource($chapter);
     }
 
     /**
